@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "siteTitle": "Título da página",
+    "siteDescription": "Seu cargo / Título",
+    "ogImage": "https://github.com/openportfolios.png",
+    "favicon": "https://github.com/openportfolios.png",
+    "defaultTheme": "light",
+    "scale": "small",
+    "language": "pt"
+  },
+  "person": {
+    "name": "Seu nome",
+    "title": "Seu cargo / Título",
+    "location": "Sua cidade, Seu país",
+    "avatar": "https://github.com/openportfolios.png",
+    "social": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/openportfolios/yuri",
+        "icon": "github"
+      }
+    ]
+  },
+  "about": {
+    "text": [
+      "Uma breve biografia descrevendo quem você é, o que você faz e o que te motiva profissionalmente. Esta é a sua chance de falar sobre sua trajetória, paixões e foco atual.",
+      "Você também pode usar [texto colorido]{#8D62DD} e [links](https://github.com/openportfolios/yuri){#0EA5E9} na sua biografia."
+    ]
+  },
+  "workExperience": [
+    {
+      "company": "Nome da Empresa",
+      "companyUrl": "https://www.company.com",
+      "companyImage": "https://placehold.co/1366x768",
+      "companyDescription": "Uma breve descrição da empresa, o que ela faz e sua missão.",
+      "role": "Cargo",
+      "period": "Mês Ano - Presente",
+      "tags": [
+        "Remoto",
+        "Habilidade 1",
+        "Habilidade 2"
+      ],
+      "bullets": [
+        "Pelo que você era responsável neste emprego.",
+        "Projeto ou sistema específico que você construiu ou para o qual contribuiu.",
+        "Impacto que você teve, como melhorar o desempenho, economizar tempo ou resolver um problema.",
+        "Qualquer outra informação que você ache relevante para mostrar suas habilidades e experiência."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Nome do projeto",
+      "description": "O que é o projeto e o que ele faz.",
+      "tags": [
+        "Tecnologia 1",
+        "Tecnologia 2"
+      ],
+      "href": "https://github.com/openportfolios/yuri"
+    }
+  ],
+  "skills": [
+    "Habilidade 1",
+    "Habilidade 2",
+    "Habilidade 3"
+  ],
+  "blog": {
+    "enabled": true
+  },
+  "discordActivity": {
+    "enabled": false,
+    "userId": "Seu ID de usuário do Discord"
+  },
+  "credits": {
+    "enabled": true
+  },
+  "animations": {
+    "enabled": true
+  }
+}
