@@ -2,7 +2,7 @@
 title: "Olá, mundo!"
 description: "Um post de demonstração padrão mostrando tudo o que este blog suporta."
 tags: ["Demo", "Guia", "Markdown"]
-date: "2026-01-01"
+date: "2026-07-05"
 ---
 
 # Olá, mundo!
