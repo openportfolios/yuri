@@ -13,7 +13,7 @@ Este é um **pmost de demonstração padrão**. Ele existe para mostrar, em um s
 
 ### Formatação de texto
 
-*Itálico*, **Negrito**, ~~Riscado~~, <sub>subscrito</sub>, <sup>sobrescrito</sup>, <ins>sublinhado</ins>
+*Itálico*, **Negrito**, ~Riscado~, <sub>subscrito</sub>, <sup>sobrescrito</sup>, <ins>sublinhado</ins>
 
 ### Texto colorido
 
@@ -30,7 +30,7 @@ Este é um `bloco de código` do post inteiro:
 title: "Olá, Mundo"
 description: "Um post de demonstração padrão mostrando tudo o que este blog suporta."
 tags: ["Demo", "Guia", "Markdown"]
-date: "2026-01-01"
+date: "2026-07-05"
 ---
 
 # Olá, Mundo
@@ -41,7 +41,7 @@ Este é um **post de demonstração padrão**. Ele existe para mostrar, em um s�
 
 ### Formatação de texto
 
-*Itálico*, **Negrito**, ~~Riscado~~, <sub>subscrito</sub>, <sup>sobrescrito</sup>, <ins>sublinhado</ins>
+*Itálico*, **Negrito**, ~Riscado~, <sub>subscrito</sub>, <sup>sobrescrito</sup>, <ins>sublinhado</ins>
 
 ### Texto colorido
 
