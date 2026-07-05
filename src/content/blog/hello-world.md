@@ -9,7 +9,7 @@ date: "2026-07-05"
 
 ## Bem-vindo ao blog
 
-Este é um **pmost de demonstração padrão**. Ele existe para mostrar, em um só lugar, tudo o que este template de blog consegue renderizar, títulos, estilos de texto, listas, imagens, blocos de código e mais.
+Este é um **post de demonstração padrão**. Ele existe para mostrar, em um só lugar, tudo o que este template de blog consegue renderizar, títulos, estilos de texto, listas, imagens, blocos de código e mais.
 
 ### Formatação de texto
 
