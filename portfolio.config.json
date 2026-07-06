@@ -23,7 +23,7 @@
   },
   "about": {
     "text": [
-      "Uma breve biografia descrevendo quem você é, o que você faz e o que te motiva profissionalmente. Esta é a sua chance de falar sobre sua trajetória, paixões e foco atual.",
+      "Uma breve biografia descrevendo quem você é, o que você faz e o que te motiva profissionalmente. Esta é a sua chance de falar sobre sua trajetória, paixões e foco <sup>atual</sup>.",
       "Você também pode usar [texto colorido]{#8D62DD} e [links](https://github.com/openportfolios/yuri){#0EA5E9} na sua biografia."
     ]
   },

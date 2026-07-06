@@ -134,7 +134,7 @@ export function sectionTitle(key: SectionKey): string {
   return SECTION_TITLES[language][key];
 }
 
-type UIStringKey = "builtWith" | "backHome" | "notFoundTitle" | "notFoundDescription";
+type UIStringKey = "builtWith" | "backHome" | "notFoundTitle" | "notFoundDescription" | "footnotesLabel";
 
 const UI_STRINGS: Record<Language, Record<UIStringKey, string>> = {
   en: {
@@ -142,12 +142,14 @@ const UI_STRINGS: Record<Language, Record<UIStringKey, string>> = {
     backHome: "go back home",
     notFoundTitle: "Page not found",
     notFoundDescription: "The page you're looking for doesn't exist or has been moved.",
+    footnotesLabel: "Footnotes",
   },
   pt: {
     builtWith: "Feito com",
     backHome: "voltar",
     notFoundTitle: "Página não encontrada",
     notFoundDescription: "A página que você está procurando não existe ou foi movida.",
+    footnotesLabel: "Notas de rodapé",
   },
 };
 

@@ -88,6 +88,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkEmoji, remarkColorLinks]}
             rehypePlugins={[rehypeRaw, rehypeSlug]}
+            remarkRehypeOptions={{ footnoteLabel: uiString("footnotesLabel") }}
             components={{
               h1: ({ children, id }) => (
                 <h1 id={id} className="text-2xl font-bold mb-4 scroll-mt-8">{children}</h1>
@@ -142,7 +143,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                   {children}
                 </ol>
               ),
-              li: ({ children }) => <li>{children}</li>,
+              li: ({ children, ...rest }) => <li {...rest}>{children}</li>,
               code: ({ className, children, node, ...props }) => {
                 // A fenced code block (```) always spans multiple source
                 // lines, even without a language tag (which is the only case
@@ -209,12 +210,16 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                 />
               ),
               a: ({ href, children, ...rest }) => {
-                const color = (rest as Record<string, string>)["data-color"];
+                const { ["data-color"]: color, ...anchorProps } = rest as Record<string, string>;
+                // In-page anchors (footnotes, heading links) must navigate in
+                // the same tab so the browser can scroll to them; only real
+                // external links should open in a new tab.
+                const isSamePageAnchor = href?.startsWith("#");
                 return (
                   <a
                     href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    {...anchorProps}
+                    {...(isSamePageAnchor ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                     className="hover:underline"
                     style={{ color: color ?? "hsl(var(--foreground))", fontWeight: 500 }}
                   >
