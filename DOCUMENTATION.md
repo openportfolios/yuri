@@ -9,16 +9,16 @@ Este documento explica **cada campo** do arquivo `portfolio.config.json` (locali
 
 1. [Visão geral](#visão-geral)
 2. [Removendo seções](#removendo-seções)
-3. [Meta](#Meta)
-4. [Pessoa](#person)
-5. [Sobre](#about)
-6. [Experiência Profissional](#workexperience)
-7. [Projetos](#projects)
-8. [Habilidades](#skills)
+3. [Meta](#meta)
+4. [Pessoa](#pessoa)
+5. [Sobre](#sobre)
+6. [Experiência Profissional](#experiência-profissional)
+7. [Projetos](#projetos)
+8. [Habilidades](#habilidades)
 9. [Blog](#blog)
-10. [Atividade](#discordactivity)
-11. [Créditos](#credits)
-12. [Animações](#animations)
+10. [Atividade](#atividade)
+11. [Créditos](#créditos)
+12. [Animações](#animações)
 13. [Texto rico](#texto-rico-rich-text)
 14. [Sistema de blog](#sistema-de-blog-srccontentblogmd)
 15. [Rodando o projeto localmente](#rodando-o-projeto-localmente)
@@ -58,7 +58,7 @@ Isso faz a seção "Projetos" desaparecer completamente da página, sem deixar t
 >  Arrays vazios (`[]`) têm o mesmo efeito de `null` para `workExperience`, `projects` e `skills`.
 
 
-## meta
+## Meta
 
 Configurações gerais do site.
 
