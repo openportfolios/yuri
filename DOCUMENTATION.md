@@ -393,8 +393,6 @@ A ordenação "mais recente primeiro" funciona corretamente com qualquer um dest
 
 O corpo do arquivo (tudo depois do frontmatter) é Markdown completo. Veja a lista completa de recursos suportados em [Corpo dos posts do blog](#corpo-dos-posts-do-blog).
 
----
-
 ## Rodando o projeto localmente
 
 ```bash
