@@ -75,10 +75,9 @@ Citrullus lanatus é muito bom. [^2].
 
 Este é um `bloco de código` do post inteiro:
 
-````
+```
 imagine uma recursão infinita aqui, kkkk
-
-````
+```
 
 ### Lista de tarefas
 
