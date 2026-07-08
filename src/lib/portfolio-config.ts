@@ -113,6 +113,41 @@ export type PortfolioConfig = {
 // null) is how a user removes that part of the site.
 export const portfolioConfig = rawConfig as unknown as PortfolioConfig;
 
+// Sections the user can reorder by moving their keys around in
+// portfolio.config.json. Only the header ("person") is pinned to the top.
+export type OrderableSectionKey =
+  | "about"
+  | "workExperience"
+  | "education"
+  | "projects"
+  | "skills"
+  | "certifications"
+  | "blog"
+  | "discordActivity";
+
+const DEFAULT_SECTION_ORDER: OrderableSectionKey[] = [
+  "about",
+  "workExperience",
+  "education",
+  "projects",
+  "skills",
+  "certifications",
+  "blog",
+  "discordActivity",
+];
+
+// Home-page sections render in the order their keys appear in
+// portfolio.config.json (JSON key order is preserved by the import). Keys
+// missing from the JSON fall back to their default position, appended at
+// the end.
+export function sectionOrder(): OrderableSectionKey[] {
+  const jsonOrder = Object.keys(rawConfig).filter((key): key is OrderableSectionKey =>
+    (DEFAULT_SECTION_ORDER as string[]).includes(key)
+  );
+  const missing = DEFAULT_SECTION_ORDER.filter((key) => !jsonOrder.includes(key));
+  return [...jsonOrder, ...missing];
+}
+
 export function hasItems<T>(value: T[] | null | undefined): value is T[] {
   return Array.isArray(value) && value.length > 0;
 }

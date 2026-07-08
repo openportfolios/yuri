@@ -9,21 +9,22 @@ Este documento explica **cada campo** do arquivo `portfolio.config.json` (locali
 
 1. [Visão geral](#visão-geral)
 2. [Removendo seções](#removendo-seções)
-3. [Meta](#meta)
-4. [Pessoa](#pessoa)
-5. [Sobre](#sobre)
-6. [Experiência Profissional](#experiência-profissional)
-7. [Formação Acadêmica](#formação-acadêmica)
-8. [Projetos](#projetos)
-9. [Habilidades](#habilidades)
-10. [Certificações](#certificações)
-11. [Blog](#blog)
-12. [Atividade](#atividade)
-13. [Créditos](#créditos)
-14. [Animações](#animações)
-15. [Texto rico](#texto-rico-rich-text)
-16. [Sistema de blog](#sistema-de-blog-srccontentblogmd)
-17. [Rodando o projeto localmente](#rodando-o-projeto-localmente)
+3. [Reordenando seções](#reordenando-seções)
+4. [Meta](#meta)
+5. [Pessoa](#pessoa)
+6. [Sobre](#sobre)
+7. [Experiência Profissional](#experiência-profissional)
+8. [Formação Acadêmica](#formação-acadêmica)
+9. [Projetos](#projetos)
+10. [Habilidades](#habilidades)
+11. [Certificações](#certificações)
+12. [Blog](#blog)
+13. [Atividade](#atividade)
+14. [Créditos](#créditos)
+15. [Animações](#animações)
+16. [Texto rico](#texto-rico-rich-text)
+17. [Sistema de blog](#sistema-de-blog-srccontentblogmd)
+18. [Rodando o projeto localmente](#rodando-o-projeto-localmente)
 
 ## Visão geral
 
@@ -61,6 +62,26 @@ Isso faz a seção "Projetos" desaparecer completamente da página, sem deixar t
 > [!NOTE]
 >  Arrays vazios (`[]`) têm o mesmo efeito de `null` para `workExperience`, `education`, `projects`, `skills` e `certifications`.
 
+## Reordenando seções
+
+As seções da página aparecem **na ordem em que as chaves estão escritas no `portfolio.config.json`**. Para mudar a ordem, basta mover o bloco inteiro de lugar dentro do arquivo. Por exemplo, para exibir "Projetos" antes de "Experiência Profissional":
+
+```json
+{
+  "meta": { ... },
+  "person": { ... },
+  "about": { ... },
+  "projects": [ ... ],
+  "workExperience": [ ... ],
+  "education": [ ... ],
+  ...
+}
+```
+
+Isso vale para: `about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog` e `discordActivity`.
+
+> [!NOTE]
+> O cabeçalho (`person`) é fixo: ele sempre aparece no topo da página, independentemente da posição dele no arquivo. As chaves `meta`, `credits` e `animations` não são seções e a posição delas no arquivo não muda nada.
 
 ## Meta
 
