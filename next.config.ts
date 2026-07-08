@@ -6,7 +6,28 @@ import type { NextConfig } from "next";
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {
-  ...(basePath ? { basePath, assetPrefix: basePath } : {}),
+  ...(basePath
+    ? {
+        basePath,
+        assetPrefix: basePath,
+        // Visiting the bare domain root redirects into the subpath, and any
+        // other path outside it redirects to the same path inside it — which
+        // renders the app's own 404 page for unknown paths instead of the
+        // hosting platform's default error page.
+        async redirects() {
+          const subpath = basePath.slice(1);
+          return [
+            { source: "/", destination: basePath, basePath: false, permanent: false },
+            {
+              source: `/:path((?!${subpath}(?:/|$)).*)`,
+              destination: `${basePath}/:path`,
+              basePath: false,
+              permanent: false,
+            },
+          ];
+        },
+      }
+    : {}),
   images: {
     remotePatterns: [
       {
