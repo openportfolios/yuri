@@ -49,6 +49,20 @@ export type ProjectItem = {
   href?: string;
 };
 
+export type EducationItem = {
+  institution: string;
+  degree: string;
+  period: string;
+};
+
+export type CertificationItem = {
+  title: string;
+  issuer: string;
+  certificationImage?: string;
+  date: string;
+  href?: string;
+};
+
 export type BlogConfig = {
   enabled: boolean;
 };
@@ -85,8 +99,10 @@ export type PortfolioConfig = {
   person: PersonConfig;
   about: AboutConfig | null;
   workExperience: WorkExperienceItem[] | null;
+  education?: EducationItem[] | null;
   projects: ProjectItem[] | null;
   skills: string[] | null;
+  certifications?: CertificationItem[] | null;
   blog: BlogConfig | null;
   discordActivity: DiscordActivityConfig | null;
   credits?: CreditsConfig | null;
@@ -107,22 +123,26 @@ export function areAnimationsEnabled(): boolean {
   return portfolioConfig.animations?.enabled ?? true;
 }
 
-type SectionKey = "about" | "workExperience" | "projects" | "skills" | "blog" | "activity";
+type SectionKey = "about" | "workExperience" | "education" | "projects" | "skills" | "certifications" | "blog" | "activity";
 
 const SECTION_TITLES: Record<Language, Record<SectionKey, string>> = {
   en: {
     about: "About",
     workExperience: "Work Experience",
+    education: "Education",
     projects: "Projects",
     skills: "Skills",
+    certifications: "Certifications",
     blog: "Blog",
     activity: "Activity",
   },
   pt: {
     about: "Sobre",
     workExperience: "Experiência Profissional",
+    education: "Formação Acadêmica",
     projects: "Projetos",
     skills: "Habilidades",
+    certifications: "Certificações",
     blog: "Blog",
     activity: "Atividade",
   },

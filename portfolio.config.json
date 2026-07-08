@@ -23,7 +23,7 @@
   },
   "about": {
     "text": [
-      "Uma breve biografia descrevendo quem você é, o que você faz e o que te motiva profissionalmente. Esta é a sua chance de falar sobre sua trajetória, paixões e foco <sup>atual</sup>.",
+      "Uma breve biografia descrevendo quem você é, o que você faz e o que te motiva profissionalmente. Esta é a sua chance de falar sobre sua trajetória, paixões e foco atual.",
       "Você também pode usar [texto colorido]{#8D62DD} e [links](https://github.com/openportfolios/yuri){#0EA5E9} na sua biografia."
     ]
   },
@@ -48,6 +48,13 @@
       ]
     }
   ],
+  "education": [
+    {
+      "institution": "Nome da Universidade",
+      "degree": "Bacharelado em Ciência da Computação",
+      "period": "Set 2025 - Presente"
+    }
+  ],
   "projects": [
     {
       "title": "Nome do projeto",
@@ -63,6 +70,15 @@
     "Habilidade 1",
     "Habilidade 2",
     "Habilidade 3"
+  ],
+  "certifications": [
+    {
+      "title": "Nome da Certificação",
+      "issuer": "Nome da Instituição",
+      "certificationImage": "https://placehold.co/600x600",
+      "date": "Mês Ano",
+      "href": "https://github.com/openportfolios/yuri"
+    }
   ],
   "blog": {
     "enabled": true

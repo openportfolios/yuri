@@ -13,15 +13,17 @@ Este documento explica **cada campo** do arquivo `portfolio.config.json` (locali
 4. [Pessoa](#pessoa)
 5. [Sobre](#sobre)
 6. [Experiência Profissional](#experiência-profissional)
-7. [Projetos](#projetos)
-8. [Habilidades](#habilidades)
-9. [Blog](#blog)
-10. [Atividade](#atividade)
-11. [Créditos](#créditos)
-12. [Animações](#animações)
-13. [Texto rico](#texto-rico-rich-text)
-14. [Sistema de blog](#sistema-de-blog-srccontentblogmd)
-15. [Rodando o projeto localmente](#rodando-o-projeto-localmente)
+7. [Formação Acadêmica](#formação-acadêmica)
+8. [Projetos](#projetos)
+9. [Habilidades](#habilidades)
+10. [Certificações](#certificações)
+11. [Blog](#blog)
+12. [Atividade](#atividade)
+13. [Créditos](#créditos)
+14. [Animações](#animações)
+15. [Texto rico](#texto-rico-rich-text)
+16. [Sistema de blog](#sistema-de-blog-srccontentblogmd)
+17. [Rodando o projeto localmente](#rodando-o-projeto-localmente)
 
 ## Visão geral
 
@@ -33,8 +35,10 @@ O arquivo `portfolio.config.json` é dividido em blocos, um por seção do site:
   "person": { ... },
   "about": { ... },
   "workExperience": [ ... ],
+  "education": [ ... ],
   "projects": [ ... ],
   "skills": [ ... ],
+  "certifications": [ ... ],
   "blog": { ... },
   "discordActivity": { ... },
   "credits": { ... },
@@ -42,7 +46,7 @@ O arquivo `portfolio.config.json` é dividido em blocos, um por seção do site:
 }
 ```
 
-Os blocos `meta` e `person` são **obrigatórios** (o portfolio não funciona sem eles). Todos os outros blocos (`about`, `workExperience`, `projects`, `skills`, `blog`, `discordActivity`, `credits`) são **opcionais**, veja a seção seguinte.
+Os blocos `meta` e `person` são **obrigatórios** (o portfolio não funciona sem eles). Todos os outros blocos (`about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog`, `discordActivity`, `credits`) são **opcionais**, veja a seção seguinte.
 
 ## Removendo seções
 
@@ -52,10 +56,10 @@ Qualquer seção opcional pode ser removida do site colocando `null` no lugar do
 "projects": null
 ```
 
-Isso faz a seção "Projetos" desaparecer completamente da página, sem deixar título vazio, sem espaço em branco. Isso vale para: `about`, `workExperience`, `projects`, `skills`, `blog`, `discordActivity` e `credits`.
+Isso faz a seção "Projetos" desaparecer completamente da página, sem deixar título vazio, sem espaço em branco. Isso vale para: `about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog`, `discordActivity` e `credits`.
 
 > [!NOTE]
->  Arrays vazios (`[]`) têm o mesmo efeito de `null` para `workExperience`, `projects` e `skills`.
+>  Arrays vazios (`[]`) têm o mesmo efeito de `null` para `workExperience`, `education`, `projects`, `skills` e `certifications`.
 
 
 ## Meta
@@ -196,6 +200,26 @@ Lista das suas experiências profissionais, exibida na seção "Experiência Pro
 > [!NOTE]
 >  O campo `tags` suporta até 6 tags.
 
+## Formação Acadêmica
+
+Lista da sua formação acadêmica, exibida na seção "Formação Acadêmica" (abaixo da Experiência Profissional).
+
+```json
+"education": [
+  {
+    "institution": "Nome da Universidade",
+    "degree": "Bacharelado em Ciência da Computação",
+    "period": "Set 2025 - Presente"
+  }
+]
+```
+
+| Campo | Tipo | Obrigatório | Descrição |
+|---|---|---|---|
+| `institution` | `string` | Sim | Nome da instituição de ensino. |
+| `degree` | `string` | Sim | Curso/grau (ex: `"Bacharelado em Ciência da Computação"`). |
+| `period` | `string` | Sim | Período (texto livre, ex: `"Set 2025 - Presente"`). |
+
 ## Projetos
 
 Lista dos seus projetos, exibida na seção "Projetos" como cards.
@@ -233,6 +257,30 @@ Lista simples de tecnologias/habilidades, exibida como badges na seção "Habili
 ```
 
 É apenas um array de strings, sem limite de itens.
+
+## Certificações
+
+Lista das suas certificações, exibida na seção "Certificações".
+
+```json
+"certifications": [
+ {
+      "title": "Nome da Certificação",
+      "issuer": "Nome da Instituição",
+      "certificationImage": "https://placehold.co/600x600",
+      "date": "Mês Ano",
+      "href": "https://github.com/openportfolios/yuri"
+    }
+]
+```
+
+| Campo | Tipo | Obrigatório | Descrição |
+|---|---|---|---|
+| `title` | `string` | Sim | Nome da certificação. |
+| `issuer` | `string` | Sim | Instituição emissora (ex: `"Amazon Web Services"`). |
+| `certificationImage` | `string` (URL) | Não | Imagem/badge da certificação, exibida ao lado do título. Se omitido, o card mostra só o texto. |
+| `date` | `string` | Sim | Data de emissão (texto livre, ex: `"Março 2025"`). |
+| `href` | `string` (URL) | Não | Link da credencial. Se presente, o card inteiro vira clicável (abre em nova aba). Se omitido, o card não é clicável. |
 
 ## Blog
 

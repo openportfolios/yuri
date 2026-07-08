@@ -11,7 +11,10 @@ const ANIMATIONS_ENABLED = areAnimationsEnabled();
 // Transitions only opacity/transform (not "all") so it never slows down
 // unrelated changes like a light/dark theme switch. Disable entirely via
 // `animations.enabled: false` in portfolio.config.json.
-export function Reveal({ children, className }: { children: React.ReactNode; className?: string }) {
+// `atPageEnd` disables the -40px bottom inset — elements at the very bottom
+// of the page (e.g. the credits line) can never scroll 40px past the viewport
+// edge, so with the inset they would stay invisible forever on short screens.
+export function Reveal({ children, className, atPageEnd }: { children: React.ReactNode; className?: string; atPageEnd?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(!ANIMATIONS_ENABLED);
 
@@ -27,11 +30,11 @@ export function Reveal({ children, className }: { children: React.ReactNode; cla
           observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: atPageEnd ? "0px" : "0px 0px -40px 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [atPageEnd]);
 
   if (!ANIMATIONS_ENABLED) {
     return (

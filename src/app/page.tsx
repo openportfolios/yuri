@@ -9,7 +9,7 @@ import { renderRichText } from "@/lib/rich-text";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
-const { about: ABOUT, workExperience: WORK_EXPERIENCE, projects: PROJECTS, skills: SKILLS, blog: BLOG } = portfolioConfig;
+const { about: ABOUT, workExperience: WORK_EXPERIENCE, education: EDUCATION, projects: PROJECTS, skills: SKILLS, certifications: CERTIFICATIONS, blog: BLOG } = portfolioConfig;
 
 const MAX_PROJECT_TAGS = 3;
 const MAX_WORK_EXPERIENCE_TAGS = 5;
@@ -143,6 +143,28 @@ export default function Home() {
             </Reveal>
           )}
 
+          {/* ── Education ── */}
+          {hasItems(EDUCATION) && (
+            <Reveal>
+            <section className="flex min-h-0 flex-col gap-y-3 print:gap-y-1">
+              <h2 className="text-xl font-bold">{sectionTitle("education")}</h2>
+              <div className="flex flex-col gap-y-4">
+                {EDUCATION.map((edu) => (
+                  <div key={edu.institution} className="rounded-lg py-1 print:py-0" style={{ backgroundColor: "hsl(var(--card))", color: "hsl(var(--card-foreground))" }}>
+                    <div className="flex flex-col space-y-1.5 print:space-y-1">
+                      <div className="flex items-start justify-between gap-x-2 text-base">
+                        <h3 className="min-w-0 flex-1 break-words font-semibold leading-none">{edu.institution}</h3>
+                        <div className="text-sm tabular-nums shrink-0" style={{ color: "#6b7280" }}>{edu.period}</div>
+                      </div>
+                      <h4 className="break-words font-mono text-sm font-semibold leading-none print:text-[12px]">{edu.degree}</h4>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+            </Reveal>
+          )}
+
           {/* ── Projects ── */}
           {hasItems(PROJECTS) && (
             <Reveal>
@@ -196,6 +218,48 @@ export default function Home() {
             </Reveal>
           )}
 
+          {/* ── Certifications ── */}
+          {hasItems(CERTIFICATIONS) && (
+            <Reveal>
+            <section className="flex min-h-0 flex-col gap-y-3 print:gap-y-1">
+              <h2 className="text-xl font-bold">{sectionTitle("certifications")}</h2>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                {CERTIFICATIONS.map((cert) => {
+                  const card = (
+                    <div
+                      className="rounded-lg border flex h-full items-center gap-x-3 overflow-hidden p-3 transition-colors hover:bg-accent"
+                      style={{ backgroundColor: "hsl(var(--card))", borderColor: "hsl(var(--border))" }}
+                      role="article"
+                    >
+                      {cert.certificationImage && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={cert.certificationImage}
+                          alt={cert.title}
+                          className="shrink-0 rounded-md"
+                          style={{ width: px(48), height: px(48), objectFit: "contain" }}
+                        />
+                      )}
+                      <div className="flex min-w-0 flex-col space-y-1">
+                        <h3 className="break-words font-semibold tracking-tight text-sm leading-tight">{cert.title}</h3>
+                        <p className="font-mono text-xs break-words" style={{ color: "hsl(var(--foreground) / 0.8)" }}>{cert.issuer}</p>
+                        <p className="font-mono text-xs tabular-nums" style={{ color: "hsl(var(--muted-foreground))" }}>{cert.date}</p>
+                      </div>
+                    </div>
+                  );
+                  return cert.href ? (
+                    <a key={cert.title} href={cert.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "inherit" }}>
+                      {card}
+                    </a>
+                  ) : (
+                    <div key={cert.title}>{card}</div>
+                  );
+                })}
+              </div>
+            </section>
+            </Reveal>
+          )}
+
           {/* ── Blog ── */}
           {BLOG?.enabled && (
             <Reveal>
@@ -237,7 +301,7 @@ export default function Home() {
           </Reveal>
         </div>
 
-        <Reveal className="mt-8">
+        <Reveal className="mt-8" atPageEnd>
           <Credits />
         </Reveal>
       </main>

@@ -258,7 +258,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         </Reveal>
       </div>
 
-      <Reveal className="mt-8">
+      <Reveal className="mt-8" atPageEnd>
         <Credits />
       </Reveal>
     </main>
