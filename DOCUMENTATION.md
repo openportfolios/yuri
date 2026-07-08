@@ -192,27 +192,27 @@ Exemplo com um único parágrafos:
 Lista das suas experiências profissionais, exibida na seção "Experiência Profissional".
 
 ```json
-  "workExperience": [
-    {
-      "company": "Nome da Empresa",
-      "companyUrl": "https://www.company.com",
-      "companyImage": "https://placehold.co/1366x768.png",
-      "companyDescription": "Uma breve descrição da empresa, o que ela faz e sua missão.",
-      "role": "Cargo",
-      "period": "Mês Ano - Presente",
-      "tags": [
-        "Remoto",
-        "Habilidade 1",
-        "Habilidade 2"
-      ],
-      "bullets": [
-        "Pelo que você era responsável neste emprego.",
-        "Projeto ou sistema específico que você construiu ou para o qual contribuiu.",
-        "Impacto que você teve, como melhorar o desempenho, economizar tempo ou resolver um problema.",
-        "Qualquer outra informação que você ache relevante para mostrar suas habilidades e experiência."
-      ]
-    }
-  ],
+"workExperience": [
+  {
+    "company": "Nome da Empresa",
+    "companyUrl": "https://www.company.com",
+    "companyImage": "https://placehold.co/1366x768.png",
+    "companyDescription": "Uma breve descrição da empresa, o que ela faz e sua missão.",
+    "role": "Cargo",
+    "period": "Mês Ano - Presente",
+    "tags": [
+      "Remoto",
+      "Habilidade 1",
+      "Habilidade 2"
+    ],
+    "bullets": [
+      "Pelo que você era responsável neste emprego.",
+      "Projeto ou sistema específico que você construiu ou para o qual contribuiu.",
+      "Impacto que você teve, como melhorar o desempenho, economizar tempo ou resolver um problema.",
+      "Qualquer outra informação que você ache relevante para mostrar suas habilidades e experiência."
+    ]
+  }
+]
 ```
 
 | Campo | Tipo | Obrigatório | Descrição |
