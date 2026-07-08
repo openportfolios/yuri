@@ -10,7 +10,7 @@ const ANIMATIONS_ENABLED = areAnimationsEnabled();
 // content further down the page waits until the user scrolls to it.
 // Transitions only opacity/transform (not "all") so it never slows down
 // unrelated changes like a light/dark theme switch. Disable entirely via
-// `animations.enabled: false` in portfolio.config.json.
+// `meta.animations: false` in portfolio.config.json.
 // `atPageEnd` disables the -40px bottom inset — elements at the very bottom
 // of the page (e.g. the credits line) can never scroll 40px past the viewport
 // edge, so with the inset they would stay invisible forever on short screens.

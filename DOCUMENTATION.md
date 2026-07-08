@@ -20,11 +20,9 @@ Este documento explica **cada campo** do arquivo `portfolio.config.json` (locali
 11. [Certificações](#certificações)
 12. [Blog](#blog)
 13. [Atividade](#atividade)
-14. [Créditos](#créditos)
-15. [Animações](#animações)
-16. [Texto rico](#texto-rico-rich-text)
-17. [Sistema de blog](#sistema-de-blog-srccontentblogmd)
-18. [Rodando o projeto localmente](#rodando-o-projeto-localmente)
+14. [Texto rico](#texto-rico-rich-text)
+15. [Sistema de blog](#sistema-de-blog-srccontentblogmd)
+16. [Rodando o projeto localmente](#rodando-o-projeto-localmente)
 
 ## Visão geral
 
@@ -41,13 +39,11 @@ O arquivo `portfolio.config.json` é dividido em blocos, um por seção do site:
   "skills": [ ... ],
   "certifications": [ ... ],
   "blog": { ... },
-  "discordActivity": { ... },
-  "credits": { ... },
-  "animations": { ... }
+  "discordActivity": { ... }
 }
 ```
 
-Os blocos `meta` e `person` são **obrigatórios** (o portfolio não funciona sem eles). Todos os outros blocos (`about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog`, `discordActivity`, `credits`) são **opcionais**, veja a seção seguinte.
+Os blocos `meta` e `person` são **obrigatórios** (o portfolio não funciona sem eles). Todos os outros blocos (`about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog`, `discordActivity`) são **opcionais**, veja a seção seguinte.
 
 ## Removendo seções
 
@@ -57,7 +53,7 @@ Qualquer seção opcional pode ser removida do site colocando `null` no lugar do
 "projects": null
 ```
 
-Isso faz a seção "Projetos" desaparecer completamente da página, sem deixar título vazio, sem espaço em branco. Isso vale para: `about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog`, `discordActivity` e `credits`.
+Isso faz a seção "Projetos" desaparecer completamente da página, sem deixar título vazio, sem espaço em branco. Isso vale para: `about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog` e `discordActivity`.
 
 > [!NOTE]
 >  Arrays vazios (`[]`) têm o mesmo efeito de `null` para `workExperience`, `education`, `projects`, `skills` e `certifications`.
@@ -81,7 +77,7 @@ As seções da página aparecem **na ordem em que as chaves estão escritas no `
 Isso vale para: `about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog` e `discordActivity`.
 
 > [!NOTE]
-> O cabeçalho (`person`) é fixo: ele sempre aparece no topo da página, independentemente da posição dele no arquivo. As chaves `meta`, `credits` e `animations` não são seções e a posição delas no arquivo não muda nada.
+> O cabeçalho (`person`) é fixo: ele sempre aparece no topo da página, independentemente da posição dele no arquivo. A chave `meta` não é uma seção e a posição dela no arquivo não muda nada.
 
 ## Meta
 
@@ -95,7 +91,9 @@ Configurações gerais do site.
   "favicon": "https://github.com/openportfolios.png",
   "defaultTheme": "light",
   "scale": "small",
-  "language": "pt"
+  "language": "pt",
+  "animations": true,
+  "credits": true
 }
 ```
 
@@ -108,6 +106,8 @@ Configurações gerais do site.
 | `defaultTheme` | `"light"`, `"dark"`, `"system"` | Sim | Tema inicial do site. |
 | `scale` | `"small"`, `"medium"`, `"high"` | Não (padrão: `"small"`) | Controla a [escala visual](#escala-visual) do portfolio, tamanho geral de fontes, ícones e espaçamentos. |
 | `language` | `"pt"`, `"en"` | Não (padrão: `"en"`) | Idioma dos títulos das seções (Sobre/About, Projetos/Projects, etc.). Não traduz o conteúdo que você mesmo escreve |
+| `animations` | `boolean` | Não (padrão: `true`) | Liga/desliga as [animações](#animações) de entrada dos elementos da página. |
+| `credits` | `boolean` | Não (padrão: `true`) | Liga/desliga o pequeno crédito "Feito com OpenPortfolios" no [rodapé](#créditos) do site. |
 
 ### Escala visual
 
@@ -118,6 +118,14 @@ Configurações gerais do site.
 | `"small"` | Tamanho padrão (100%), o baseline original do design. |
 | `"medium"` | Aumenta fontes, ícones, avatar e espaçamentos em **25%**. |
 | `"high"` | Aumenta fontes, ícones, avatar e espaçamentos em **50%**. |
+
+### Animações
+
+`meta.animations` liga/desliga a animação suave dos elementos da página. Com a animação ativa (`true`, o padrão), o conteúdo já visível ao carregar a página aparece com um fade suave, e o conteúdo mais abaixo só aparece conforme o usuário rola a tela até ele. Com `false`, todo o conteúdo aparece direto, sem nenhuma animação.
+
+### Créditos
+
+`meta.credits` liga/desliga um pequeno crédito no rodapé do site "Feito com OpenPortfolios". Se `true` (o padrão), o crédito aparece na home e em toda página de post do blog. Se `false`, nada é exibido.
 
 ## Pessoa
 
@@ -341,36 +349,6 @@ Mostra em tempo real o que você está jogando/ouvindo no Discord, além de um i
 A API que fornece os dados do Discord é a [Grux API](https://github.com/matheusaudibert/grux) e para ela funcionar você deve ser membro deste servidor:
 
 [![Discord Server Card](https://cardzera.audibert.dev/api/1383718526694461532?t=1783293948510&buttonText=Entrar)](https://discord.gg/XuhsaMEqzf)
-
-## Créditos
-
-Liga/desliga um pequeno crédito no rodapé do site "Feito com OpenPortfolios".
-
-```json
-"credits": {
-  "enabled": true
-}
-```
-
-| Campo | Tipo | Descrição |
-|---|---|---|
-| `enabled` | `boolean` | Se `true`, mostra o rodapé com o crédito na home e em toda página de post do blog. Se `false`, nada é exibido. |
-
----
-
-## Animações
-
-Liga/desliga a animação suave dos elementos da página. Com a animação ativa, o conteúdo já visível ao carregar a página aparece com um fade suave, e o conteúdo mais abaixo só aparece conforme o usuário rola a tela até ele.
-
-```json
-"animations": {
-  "enabled": true
-}
-```
-
-| Campo | Tipo | Descrição |
-|---|---|---|
-| `enabled` | `boolean` | Se `true` (padrão), as animações de entrada ficam ativas. Se `false`, todo o conteúdo aparece direto, sem nenhuma animação. |
 
 ## Texto rico (rich text)
 

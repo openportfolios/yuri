@@ -72,14 +72,6 @@ export type DiscordActivityConfig = {
   userId: string;
 };
 
-export type CreditsConfig = {
-  enabled: boolean;
-};
-
-export type AnimationsConfig = {
-  enabled: boolean;
-};
-
 export type ScaleLevel = "small" | "medium" | "high";
 
 export type Language = "en" | "pt";
@@ -92,6 +84,10 @@ export type MetaConfig = {
   defaultTheme: "light" | "dark" | "system";
   scale?: ScaleLevel;
   language?: Language;
+  // Scroll-reveal animations (default: true).
+  animations?: boolean;
+  // "Built with OpenPortfolios" line at the bottom of the page (default: true).
+  credits?: boolean;
 };
 
 export type PortfolioConfig = {
@@ -105,8 +101,6 @@ export type PortfolioConfig = {
   certifications?: CertificationItem[] | null;
   blog: BlogConfig | null;
   discordActivity: DiscordActivityConfig | null;
-  credits?: CreditsConfig | null;
-  animations?: AnimationsConfig | null;
 };
 
 // Sections are optional in the JSON file — omitting a key (or setting it to
@@ -152,10 +146,10 @@ export function hasItems<T>(value: T[] | null | undefined): value is T[] {
   return Array.isArray(value) && value.length > 0;
 }
 
-// Scroll-reveal animations are on by default; set animations.enabled to
-// false (or animations to null) in portfolio.config.json to turn them off.
+// Scroll-reveal animations are on by default; set meta.animations to false
+// in portfolio.config.json to turn them off.
 export function areAnimationsEnabled(): boolean {
-  return portfolioConfig.animations?.enabled ?? true;
+  return portfolioConfig.meta.animations ?? true;
 }
 
 type SectionKey = "about" | "workExperience" | "education" | "projects" | "skills" | "certifications" | "blog" | "activity";

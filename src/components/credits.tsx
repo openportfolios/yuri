@@ -1,9 +1,9 @@
 import { portfolioConfig, px, uiString } from "@/lib/portfolio-config";
 
-const CREDITS = portfolioConfig.credits;
+const CREDITS_ENABLED = portfolioConfig.meta.credits ?? true;
 
 export function Credits() {
-  if (!CREDITS?.enabled) return null;
+  if (!CREDITS_ENABLED) return null;
 
   return (
     <p

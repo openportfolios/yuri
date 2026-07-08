@@ -9,9 +9,9 @@ date: "2026-07-05"
 
 <!-- Olá, de uma estrela no projeto! :) -->
 
-## Bem-vindo ao blog
+## Bem-vindo ao blog :tada:
 
-Este é um **post de demonstração padrão**. Ele existe para mostrar, em um só lugar, tudo o que este template de blog consegue renderizar, títulos, estilos de texto, listas, imagens, blocos de código e mais.
+Este é um **post de demonstração padrão** (em português) .Ele existe para mostrar, em um só lugar, tudo o que este template de blog consegue renderizar, títulos, estilos de texto, listas, imagens, blocos de código e mais.
 
 ### Formatação de texto
 

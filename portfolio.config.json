@@ -6,7 +6,9 @@
     "favicon": "https://github.com/openportfolios.png",
     "defaultTheme": "light",
     "scale": "small",
-    "language": "en"
+    "language": "en",
+    "animations": true,
+    "credits": true
   },
   "person": {
     "name": "Seu nome",
@@ -86,11 +88,5 @@
   "discordActivity": {
     "enabled": false,
     "userId": "Seu ID de usuário do Discord"
-  },
-  "credits": {
-    "enabled": true
-  },
-  "animations": {
-    "enabled": true
   }
 }
