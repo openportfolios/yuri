@@ -11,6 +11,10 @@ const inter = Inter({
 
 const { siteTitle, siteDescription, ogImage, defaultTheme } = portfolioConfig.meta;
 
+// Next.js doesn't prepend basePath to the auto-generated icon.tsx <link> href
+// (https://github.com/vercel/next.js/issues/61487), so it's set explicitly here.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   title: siteTitle,
   description: siteDescription,
@@ -19,6 +23,9 @@ export const metadata: Metadata = {
       ? `https://${process.env.VERCEL_URL}`
       : "http://localhost:3000"
   ),
+  icons: {
+    icon: `${basePath}/icon`,
+  },
   openGraph: {
     title: siteTitle,
     description: siteDescription,
