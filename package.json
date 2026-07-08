@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/validate-config.mjs",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "@openportfolios/schema": "^1.0.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "lucide-react": "^1.7.0",

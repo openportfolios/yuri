@@ -1,25 +1,27 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { areAnimationsEnabled } from "@/lib/portfolio-config";
-
-const ANIMATIONS_ENABLED = areAnimationsEnabled();
 
 // Fades an element in (with a slight upward slide) the first time it enters
 // the viewport. Content already visible on load reveals immediately;
 // content further down the page waits until the user scrolls to it.
 // Transitions only opacity/transform (not "all") so it never slows down
-// unrelated changes like a light/dark theme switch. Disable entirely via
-// `meta.animations: false` in portfolio.config.json.
+// unrelated changes like a light/dark theme switch. Disable via the
+// `enabled` prop (wired to `meta.animations` in portfolio.config.json).
 // `atPageEnd` disables the -40px bottom inset — elements at the very bottom
 // of the page (e.g. the credits line) can never scroll 40px past the viewport
 // edge, so with the inset they would stay invisible forever on short screens.
-export function Reveal({ children, className, atPageEnd }: { children: React.ReactNode; className?: string; atPageEnd?: boolean }) {
+export function Reveal({ children, className, atPageEnd, enabled = true }: { children: React.ReactNode; className?: string; atPageEnd?: boolean; enabled?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(!ANIMATIONS_ENABLED);
+  const [visible, setVisible] = useState(!enabled);
 
   useEffect(() => {
-    if (!ANIMATIONS_ENABLED) return;
+    if (!enabled) {
+      // If animations get turned off mid-session (live preview), make sure
+      // nothing stays stuck hidden.
+      setVisible(true);
+      return;
+    }
     const el = ref.current;
     if (!el) return;
 
@@ -34,9 +36,9 @@ export function Reveal({ children, className, atPageEnd }: { children: React.Rea
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [atPageEnd]);
+  }, [atPageEnd, enabled]);
 
-  if (!ANIMATIONS_ENABLED) {
+  if (!enabled) {
     return (
       <div ref={ref} className={className}>
         {children}

@@ -1,7 +1,8 @@
 import { FileText, Globe, Mail } from "lucide-react";
+import Link from "next/link";
 import { DiscordStatusDot } from "@/components/discord-activity";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { portfolioConfig, px, type SocialIconKey } from "@/lib/portfolio-config";
+import { makePx, type PortfolioConfigInput, type SocialIconKey } from "@/lib/portfolio-config";
 
 // ── Brand SVG icons ───────────────────────────────────────────────────────────
 function GithubIcon({ size = 14 }: { size?: number }) {
@@ -44,22 +45,22 @@ function YoutubeIcon({ size = 14 }: { size?: number }) {
   );
 }
 
-const SOCIAL_ICON_SIZE = px(16);
+function socialIcon(icon: SocialIconKey, size: number): React.ReactNode {
+  const icons: Record<SocialIconKey, React.ReactNode> = {
+    email: <Mail size={size} />,
+    resume: <FileText size={size} />,
+    github: <GithubIcon size={size} />,
+    linkedin: <LinkedinIcon size={size} />,
+    instagram: <InstagramIcon size={size} />,
+    x: <XIcon size={size} />,
+    youtube: <YoutubeIcon size={size} />,
+  };
+  return icons[icon] ?? null;
+}
 
-const SOCIAL_ICONS: Record<SocialIconKey, React.ReactNode> = {
-  email: <Mail size={SOCIAL_ICON_SIZE} />,
-  resume: <FileText size={SOCIAL_ICON_SIZE} />,
-  github: <GithubIcon size={SOCIAL_ICON_SIZE} />,
-  linkedin: <LinkedinIcon size={SOCIAL_ICON_SIZE} />,
-  instagram: <InstagramIcon size={SOCIAL_ICON_SIZE} />,
-  x: <XIcon size={SOCIAL_ICON_SIZE} />,
-  youtube: <YoutubeIcon size={SOCIAL_ICON_SIZE} />,
-};
-
-const PERSON = portfolioConfig.person;
 const MAX_SOCIAL_LINKS = 6;
 
-function SocialButton({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
+function SocialButton({ href, label, size, children }: { href: string; label: string; size: number; children: React.ReactNode }) {
   return (
     <a
       href={href}
@@ -68,7 +69,7 @@ function SocialButton({ href, label, children }: { href: string; label: string; 
       aria-label={label}
       className="inline-flex items-center justify-center rounded-md transition-colors hover:bg-accent"
       style={{
-        width: px(32), height: px(32), flexShrink: 0,
+        width: size, height: size, flexShrink: 0,
         border: "1px solid hsl(var(--input))",
         backgroundColor: "hsl(var(--background))",
         color: "hsl(var(--foreground))",
@@ -80,38 +81,41 @@ function SocialButton({ href, label, children }: { href: string; label: string; 
   );
 }
 
-export function PersonHeader() {
+export function PersonHeader({ config }: { config: PortfolioConfigInput }) {
+  const person = config.person;
+  const px = makePx(config);
+
   return (
     <header className="flex items-center justify-between">
       <div className="min-w-0 flex-1 space-y-1.5">
         <h1 className="flex items-center gap-x-2 text-2xl font-bold">
-          <span className="min-w-0 break-words">{PERSON.name}</span>
+          <span className="min-w-0 break-words">{person.name}</span>
           <span className="shrink-0 print:hidden">
-            <DiscordStatusDot />
+            <DiscordStatusDot config={config.discordActivity} />
           </span>
         </h1>
         <p className="max-w-md text-pretty break-words font-mono text-sm" style={{ color: "hsl(var(--foreground) / 0.8)" }}>
-          {PERSON.title}
+          {person.title}
         </p>
         <p className="max-w-md items-center text-pretty font-mono text-xs" style={{ color: "hsl(var(--foreground))" }}>
           <span className="inline-flex max-w-full gap-x-1.5 align-baseline leading-none">
             <Globe size={px(12)} className="shrink-0" />
-            <span className="min-w-0 break-words">{PERSON.location}</span>
+            <span className="min-w-0 break-words">{person.location}</span>
           </span>
         </p>
         <div className="flex gap-x-1 pt-1 font-mono text-sm print:hidden">
-          {PERSON.social.slice(0, MAX_SOCIAL_LINKS).map((s) => (
-            <SocialButton key={s.label} href={s.href} label={s.label}>
-              {SOCIAL_ICONS[s.icon]}
+          {person.social.slice(0, MAX_SOCIAL_LINKS).map((s) => (
+            <SocialButton key={s.label} href={s.href} label={s.label} size={px(32)}>
+              {socialIcon(s.icon as SocialIconKey, px(16))}
             </SocialButton>
           ))}
-          <ThemeToggle />
+          <ThemeToggle buttonSize={px(32)} iconSize={px(16)} />
         </div>
       </div>
-      <a href="/" style={{ position: "relative", display: "flex", flexShrink: 0, overflow: "hidden", borderRadius: px(12), width: px(112), height: px(112) }}>
+      <Link href="/" style={{ position: "relative", display: "flex", flexShrink: 0, overflow: "hidden", borderRadius: px(12), width: px(112), height: px(112) }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img style={{ aspectRatio: "1/1", height: "100%", width: "100%", objectFit: "cover" }} src={PERSON.avatar} alt={PERSON.name} />
-      </a>
+        <img style={{ aspectRatio: "1/1", height: "100%", width: "100%", objectFit: "cover" }} src={person.avatar} alt={person.name} />
+      </Link>
     </header>
   );
 }

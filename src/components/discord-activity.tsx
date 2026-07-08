@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { portfolioConfig, sectionTitle } from "@/lib/portfolio-config";
+import type { PortfolioConfigInput } from "@/lib/portfolio-config";
 
-const DISCORD_ACTIVITY_CONFIG = portfolioConfig.discordActivity;
+type DiscordActivityConfig = PortfolioConfigInput["discordActivity"];
+
 const API_BASE = "https://grux.audibert.dev";
 const POLL_INTERVAL_MS = 10000;
 
@@ -36,14 +37,18 @@ type DiscordActivityData = {
   activity?: DiscordActivity[];
 };
 
-function useDiscordActivity() {
+function useDiscordActivity(config: DiscordActivityConfig) {
   const [data, setData] = useState<DiscordActivityData | null>(null);
+  const enabled = config?.enabled ?? false;
+  const userId = config?.userId;
 
   useEffect(() => {
-    if (!DISCORD_ACTIVITY_CONFIG?.enabled || !DISCORD_ACTIVITY_CONFIG?.userId) return;
+    if (!enabled || !userId) {
+      setData(null);
+      return;
+    }
 
     let cancelled = false;
-    const { userId } = DISCORD_ACTIVITY_CONFIG;
 
     async function fetchActivity() {
       try {
@@ -61,13 +66,13 @@ function useDiscordActivity() {
       cancelled = true;
       clearInterval(interval);
     };
-  }, []);
+  }, [enabled, userId]);
 
   return data;
 }
 
-export function DiscordStatusDot() {
-  const data = useDiscordActivity();
+export function DiscordStatusDot({ config }: { config: DiscordActivityConfig }) {
+  const data = useDiscordActivity(config);
   if (!data) return null;
 
   const color = STATUS_COLORS[data.status] ?? STATUS_COLORS.offline;
@@ -91,8 +96,8 @@ function ActivityCardImage({ image, alt }: { image?: string; alt: string }) {
   );
 }
 
-export function DiscordActivitySection() {
-  const data = useDiscordActivity();
+export function DiscordActivitySection({ config, title }: { config: DiscordActivityConfig; title: string }) {
+  const data = useDiscordActivity(config);
   if (!data) return null;
 
   const activities = (data.activity ?? []).filter((a) => a.type === "Playing");
@@ -103,7 +108,7 @@ export function DiscordActivitySection() {
 
   return (
     <section className="flex min-h-0 flex-col gap-y-3 print:hidden">
-      <h2 className="text-xl font-bold">{sectionTitle("activity")}</h2>
+      <h2 className="text-xl font-bold">{title}</h2>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {data.spotify && (
           <a

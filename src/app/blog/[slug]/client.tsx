@@ -10,12 +10,13 @@ import { Credits } from "@/components/credits";
 import { PersonHeader } from "@/components/person-header";
 import { Reveal } from "@/components/reveal";
 import type { BlogPost } from "@/lib/blog";
-import { px, uiString } from "@/lib/portfolio-config";
+import { areAnimationsEnabled, portfolioConfig, px, uiString } from "@/lib/portfolio-config";
 import remarkColorLinks from "@/lib/remark-color-links";
 
 const MAX_BLOG_TAGS = 3;
 
 export default function BlogPostClient({ post }: { post: BlogPost }) {
+  const animations = areAnimationsEnabled(portfolioConfig);
   return (
     <main
       style={{ maxWidth: px(1400) }}
@@ -24,7 +25,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
       <div className="mx-auto w-full max-w-2xl space-y-8" style={{ backgroundColor: "hsl(var(--background))" }}>
 
         {/* Back link */}
-        <Reveal>
+        <Reveal enabled={animations}>
           <Link
             href="/"
             className="inline-flex items-center gap-x-1.5 font-mono text-sm hover:underline print:hidden"
@@ -43,12 +44,12 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
             >
               <path d="m15 18-6-6 6-6" />
             </svg>
-            {uiString("backHome")}
+            {uiString(portfolioConfig, "backHome")}
           </Link>
         </Reveal>
 
         {/* Post metadata */}
-        <Reveal>
+        <Reveal enabled={animations}>
           <div className="flex flex-col gap-y-2">
             <p className="font-mono text-xs tabular-nums" style={{ color: "hsl(var(--muted-foreground))" }}>
               {post.date}
@@ -83,12 +84,12 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         </Reveal>
 
         {/* Markdown content */}
-        <Reveal>
+        <Reveal enabled={animations}>
         <article className="prose-blog break-words">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkEmoji, remarkColorLinks]}
             rehypePlugins={[rehypeRaw, rehypeSlug]}
-            remarkRehypeOptions={{ footnoteLabel: uiString("footnotesLabel") }}
+            remarkRehypeOptions={{ footnoteLabel: uiString(portfolioConfig, "footnotesLabel") }}
             components={{
               h1: ({ children, id }) => (
                 <h1 id={id} className="text-2xl font-bold mb-4 scroll-mt-8">{children}</h1>
@@ -253,13 +254,13 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
 
         <hr style={{ borderColor: "hsl(var(--border))" }} />
 
-        <Reveal>
-          <PersonHeader />
+        <Reveal enabled={animations}>
+          <PersonHeader config={portfolioConfig} />
         </Reveal>
       </div>
 
-      <Reveal className="mt-8" atPageEnd>
-        <Credits />
+      <Reveal className="mt-8" atPageEnd enabled={animations}>
+        <Credits config={portfolioConfig} />
       </Reveal>
     </main>
   );

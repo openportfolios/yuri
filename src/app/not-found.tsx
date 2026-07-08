@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { px, uiString } from "@/lib/portfolio-config";
+import { portfolioConfig, px, uiString } from "@/lib/portfolio-config";
 
 export default function NotFound() {
   return (
@@ -12,9 +12,9 @@ export default function NotFound() {
           <p className="font-mono text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
             404
           </p>
-          <h1 className="text-2xl font-bold">{uiString("notFoundTitle")}</h1>
+          <h1 className="text-2xl font-bold">{uiString(portfolioConfig, "notFoundTitle")}</h1>
           <p className="font-mono text-sm text-pretty" style={{ color: "hsl(var(--foreground) / 0.8)" }}>
-            {uiString("notFoundDescription")}
+            {uiString(portfolioConfig, "notFoundDescription")}
           </p>
           <Link
             href="/"
@@ -34,7 +34,7 @@ export default function NotFound() {
             >
               <path d="m15 18-6-6 6-6" />
             </svg>
-            {uiString("backHome")}
+            {uiString(portfolioConfig, "backHome")}
           </Link>
         </div>
       </div>

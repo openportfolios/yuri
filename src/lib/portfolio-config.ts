@@ -1,5 +1,25 @@
+import type { PortfolioConfigInput } from "@openportfolios/schema";
 import rawConfig from "../../portfolio.config.json";
 
+// Config types come from the official schema package; the JSON is validated
+// against it at build time by scripts/validate-config.mjs (npm "prebuild").
+export type {
+  PortfolioConfig,
+  PortfolioConfigInput,
+  Meta,
+  Person,
+  SocialLink,
+  About,
+  WorkExperienceItem,
+  EducationItem,
+  ProjectItem,
+  CertificationItem,
+  Blog,
+  DiscordActivity,
+} from "@openportfolios/schema";
+
+// Icons this template ships for person.social entries (the schema allows any
+// string for `icon`; unknown values simply render no icon).
 export type SocialIconKey =
   | "email"
   | "resume"
@@ -9,103 +29,13 @@ export type SocialIconKey =
   | "x"
   | "youtube";
 
-export type SocialLink = {
-  label: string;
-  href: string;
-  icon: SocialIconKey;
-};
+export type ScaleLevel = NonNullable<PortfolioConfigInput["meta"]["scale"]>;
 
-export type PersonConfig = {
-  name: string;
-  title: string;
-  location: string;
-  avatar: string;
-  social: SocialLink[];
-};
-
-export type AboutConfig = {
-  // A single paragraph, or multiple strings for multiple paragraphs.
-  // Supports rich text: **bold**, *italic*, ~~strike~~, `code`, and
-  // [label](url){color} links (color is any CSS color; omit the url to get
-  // colored, non-clickable text).
-  text: string | string[];
-};
-
-export type WorkExperienceItem = {
-  company: string;
-  companyUrl: string;
-  companyImage?: string;
-  companyDescription?: string;
-  role: string;
-  period: string;
-  tags: string[];
-  bullets: string[];
-};
-
-export type ProjectItem = {
-  title: string;
-  description: string;
-  tags: string[];
-  href?: string;
-};
-
-export type EducationItem = {
-  institution: string;
-  degree: string;
-  period: string;
-};
-
-export type CertificationItem = {
-  title: string;
-  issuer: string;
-  certificationImage?: string;
-  date: string;
-  href?: string;
-};
-
-export type BlogConfig = {
-  enabled: boolean;
-};
-
-export type DiscordActivityConfig = {
-  enabled: boolean;
-  userId: string;
-};
-
-export type ScaleLevel = "small" | "medium" | "high";
-
-export type Language = "en" | "pt";
-
-export type MetaConfig = {
-  siteTitle: string;
-  siteDescription: string;
-  ogImage: string;
-  favicon?: string;
-  defaultTheme: "light" | "dark" | "system";
-  scale?: ScaleLevel;
-  language?: Language;
-  // Scroll-reveal animations (default: true).
-  animations?: boolean;
-  // "Built with OpenPortfolios" line at the bottom of the page (default: true).
-  credits?: boolean;
-};
-
-export type PortfolioConfig = {
-  meta: MetaConfig;
-  person: PersonConfig;
-  about: AboutConfig | null;
-  workExperience: WorkExperienceItem[] | null;
-  education?: EducationItem[] | null;
-  projects: ProjectItem[] | null;
-  skills: string[] | null;
-  certifications?: CertificationItem[] | null;
-  blog: BlogConfig | null;
-  discordActivity: DiscordActivityConfig | null;
-};
+export type Language = NonNullable<PortfolioConfigInput["meta"]["language"]>;
 
 // Sections are optional in the JSON file — omitting a key (or setting it to
 // null) is how a user removes that part of the site.
-export const portfolioConfig = rawConfig as unknown as PortfolioConfig;
+export const portfolioConfig = rawConfig as unknown as PortfolioConfigInput;
 
 // Sections the user can reorder by moving their keys around in
 // portfolio.config.json. Only the header ("person") is pinned to the top.
@@ -130,12 +60,12 @@ const DEFAULT_SECTION_ORDER: OrderableSectionKey[] = [
   "discordActivity",
 ];
 
-// Home-page sections render in the order their keys appear in
-// portfolio.config.json (JSON key order is preserved by the import). Keys
-// missing from the JSON fall back to their default position, appended at
-// the end.
-export function sectionOrder(): OrderableSectionKey[] {
-  const jsonOrder = Object.keys(rawConfig).filter((key): key is OrderableSectionKey =>
+// Home-page sections render in the order their keys appear in the config
+// object (JSON key order is preserved by the import and by postMessage's
+// structured clone). Keys missing from the config fall back to their default
+// position, appended at the end.
+export function sectionOrder(config: PortfolioConfigInput): OrderableSectionKey[] {
+  const jsonOrder = Object.keys(config).filter((key): key is OrderableSectionKey =>
     (DEFAULT_SECTION_ORDER as string[]).includes(key)
   );
   const missing = DEFAULT_SECTION_ORDER.filter((key) => !jsonOrder.includes(key));
@@ -148,8 +78,8 @@ export function hasItems<T>(value: T[] | null | undefined): value is T[] {
 
 // Scroll-reveal animations are on by default; set meta.animations to false
 // in portfolio.config.json to turn them off.
-export function areAnimationsEnabled(): boolean {
-  return portfolioConfig.meta.animations ?? true;
+export function areAnimationsEnabled(config: PortfolioConfigInput): boolean {
+  return config.meta.animations ?? true;
 }
 
 type SectionKey = "about" | "workExperience" | "education" | "projects" | "skills" | "certifications" | "blog" | "activity";
@@ -178,8 +108,8 @@ const SECTION_TITLES: Record<Language, Record<SectionKey, string>> = {
 };
 
 // Section headings are translated based on `meta.language` ("en" or "pt").
-export function sectionTitle(key: SectionKey): string {
-  const language = portfolioConfig.meta.language ?? "en";
+export function sectionTitle(config: PortfolioConfigInput, key: SectionKey): string {
+  const language = config.meta.language ?? "en";
   return SECTION_TITLES[language][key];
 }
 
@@ -204,8 +134,8 @@ const UI_STRINGS: Record<Language, Record<UIStringKey, string>> = {
 
 // Small bits of chrome UI text (not section headings) translated the same
 // way as `sectionTitle`, based on `meta.language`.
-export function uiString(key: UIStringKey): string {
-  const language = portfolioConfig.meta.language ?? "en";
+export function uiString(config: PortfolioConfigInput, key: UIStringKey): string {
+  const language = config.meta.language ?? "en";
   return UI_STRINGS[language][key];
 }
 
@@ -217,11 +147,23 @@ const SCALE_MULTIPLIERS: Record<ScaleLevel, number> = {
 
 export const BASE_FONT_SIZE_PX = 16;
 
-export const scaleMultiplier = SCALE_MULTIPLIERS[portfolioConfig.meta.scale ?? "small"];
+export function scaleMultiplierFor(config: PortfolioConfigInput): number {
+  return SCALE_MULTIPLIERS[config.meta.scale ?? "small"];
+}
 
 // Converts a design value authored at the "small" (1x) baseline into the
-// current scale level. Use for raw px values that don't ride the root
-// font-size (rem-based Tailwind utilities already scale automatically).
+// scale level of the given config. Use for raw px values that don't ride the
+// root font-size (rem-based Tailwind utilities already scale automatically).
+export function makePx(config: PortfolioConfigInput): (base: number) => number {
+  const multiplier = scaleMultiplierFor(config);
+  return (base) => base * multiplier;
+}
+
+// Singleton-bound versions for chrome outside the <Portfolio /> tree
+// (layout, not-found, blog pages, theme toggle defaults) — always reflect
+// the repo's own portfolio.config.json.
+export const scaleMultiplier = scaleMultiplierFor(portfolioConfig);
+
 export function px(base: number): number {
   return base * scaleMultiplier;
 }
