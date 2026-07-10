@@ -21,7 +21,7 @@ Este é um **post de demonstração padrão** (em português) .Ele existe para m
 
 Você pode destacar nomes, links ou palavras com cores personalizadas:
 
-Este post foi escrito usando [Markdown](https://www.markdownguide.org/){#0EA5E9}, estilizado com [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS){#F97316}, e publicado a partir de um repositório do [GitHub](https://github.com){#6E5494}.
+Este post foi escrito usando [Markdown](https://www.markdownguide.org/){#0EA5E9}.
 
 ### Notas de rodapé
 
