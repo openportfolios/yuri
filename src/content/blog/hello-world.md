@@ -1,128 +1,128 @@
 ---
-title: "Olá, mundo!"
-description: "Um post de demonstração padrão mostrando tudo o que este blog suporta."
-tags: ["Demo", "Guia", "Markdown"]
-date: "2026-07-05"
+title: "Hello, world!"
+description: "A standard demo post showing everything this blog supports (english)."
+tags: ["Demo", "Guide", "Markdown"]
+date: "YEAR-MONTH-DAY"
 ---
 
-# Olá, mundo!
+# Hello, world!
 
-<!-- Olá, de uma estrela no projeto! :) -->
+<!-- Hello, from a star of the project! :) -->
 
-## Bem-vindo ao blog :tada:
+## Welcome to the blog :tada:
 
-Este é um **post de demonstração padrão** (em português) .Ele existe para mostrar, em um só lugar, tudo o que este template de blog consegue renderizar, títulos, estilos de texto, listas, imagens, blocos de código e mais.
+This is a **standard demo post** (in English). It exists to show, in a single place, everything this blog template can render: headings, text styles, lists, images, code blocks, and more.
 
-### Formatação de texto
+### Text formatting
 
-*Itálico*, **Negrito**, ~Riscado~, <sub>subscrito</sub>, <sup>sobrescrito</sup>, <ins>sublinhado</ins>, `\*teste\*`.
+*Italic*, **Bold**, ~Strikethrough~, <sub>subscript</sub>, <sup>superscript</sup>, <ins>underline</ins>, `\*test\*`.
 
-### Texto colorido
+### Colored text
 
-Você pode destacar nomes, links ou palavras com cores personalizadas:
+You can highlight names, links, or words with custom colors:
 
-Este post foi escrito usando [Markdown](https://www.markdownguide.org/){#0EA5E9}.
+This post was written using [Markdown](https://www.markdownguide.org/){#0EA5E9}.
 
-### Notas de rodapé
+### Footnotes
 
-Uma simples nota de rodape [^1].
+A simple footnote [^1].
 
-Citrullus lanatus é muito bom. [^2].
+Citrullus lanatus is very good. [^2].
 
-[^1]: Referência aqui.
-[^2]: Citrullus lanatus é o nome científico da melancia.
+[^1]: Reference here.
+[^2]: Citrullus lanatus is the scientific name for watermelon.
 
-### Bloco de código
+### Code block
 
-Este é um `bloco de código` do post inteiro:
+This is a `code block` of the entire post:
 
 ````
 ---
-title: "Olá, mundo!"
-description: "Um post de demonstração padrão mostrando tudo o que este blog suporta."
-tags: ["Demo", "Guia", "Markdown"]
+title: "Hello, world!"
+description: "A standard demo post showing everything this blog supports."
+tags: ["Demo", "Guide", "Markdown"]
 date: "2026-07-05"
 ---
 
-# Olá, mundo!
+# Hello, world!
 
-<!-- Olá, de uma estrela no projeto! :) -->
+<!-- Hello, from a star of the project! :) -->
 
-## Bem-vindo ao blog
+## Welcome to the blog
 
-Este é um **post de demonstração padrão**. Ele existe para mostrar, em um só lugar, tudo o que este template de blog consegue renderizar, títulos, estilos de texto, listas, imagens, blocos de código e mais.
+This is a **standard demo post**. It exists to show, in a single place, everything this blog template can render: headings, text styles, lists, images, code blocks, and more.
 
-### Formatação de texto
+### Text formatting
 
-*Itálico*, **Negrito**, ~Riscado~, <sub>subscrito</sub>, <sup>sobrescrito</sup>, <ins>sublinhado</ins>, `\*teste\*`.
+*Italic*, **Bold**, ~Strikethrough~, <sub>subscript</sub>, <sup>superscript</sup>, <ins>underline</ins>, `\*test\*`.
 
-### Texto colorido
+### Colored text
 
-Você pode destacar nomes, links ou palavras com cores personalizadas:
+You can highlight names, links, or words with custom colors:
 
-Este post foi escrito usando [Markdown](https://www.markdownguide.org/){#0EA5E9}, estilizado com [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS){#F97316}, e publicado a partir de um repositório do [GitHub](https://github.com){#6E5494}.
+This post was written using [Markdown](https://www.markdownguide.org/){#0EA5E9}, styled with [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS){#F97316}, and published from a [GitHub](https://github.com){#6E5494} repository.
 
-### Notas de rodapé
+### Footnotes
 
-Uma simples nota de rodape [^1].
+A simple footnote [^1].
 
-Citrullus lanatus é muito bom. [^2].
+Citrullus lanatus is very good. [^2].
 
-[^1]: Referência aqui.
-[^2]: Citrullus lanatus é o nome científico da melancia.
+[^1]: Reference here.
+[^2]: Citrullus lanatus is the scientific name for watermelon.
 
-### Bloco de código
+### Code block
 
-Este é um `bloco de código` do post inteiro:
+This is a `code block` of the entire post:
 
 ```
-imagine uma recursão infinita aqui, kkkk
+imagine infinite recursion here, lol
 ```
 
-### Lista de tarefas
+### Task list
 
-- [x] Configurar o projeto
-- [x] Lançar o primeiro template
-- [ ] Publicar
+- [x] Set up the project
+- [x] Launch the first template
+- [ ] Publish
 
-### Imagem (sintaxe Markdown)
+### Image (Markdown syntax)
 
-![Imagem de exemplo](https://placehold.co/800x400)
+![Example image](https://placehold.co/800x400)
 
-### Imagem (sintaxe HTML, com largura personalizada)
+### Image (HTML syntax, with custom width)
 
 <img src="https://placehold.co/300x300" width="300" />
 
-### Uma lista simples
+### A simple list
 
-- Este é um template padrão
-- Ele suporta formatação de texto rica
-- Sinta-se à vontade para apagar este post e escrever o seu
-- Obrigado por conferir!
+- This is a standard template
+- It supports rich text formatting
+- Feel free to delete this post and write your own
+- Thanks for checking it out!
 
-É isso, boa escrita!
+That's it, happy writing!
 
 ````
 
-### Lista de tarefas
+### Task list
 
-- [x] Configurar o projeto
-- [x] Lançar o primeiro template
-- [ ] Publicar
+- [x] Set up the project
+- [x] Launch the first template
+- [ ] Publish
 
-### Imagem (sintaxe Markdown)
+### Image (Markdown syntax)
 
-![Imagem de exemplo](https://placehold.co/800x400)
+![Example image](https://placehold.co/800x400)
 
-### Imagem (sintaxe HTML, com largura personalizada)
+### Image (HTML syntax, with custom width)
 
 <img src="https://placehold.co/300x300" width="300" />
 
-### Uma lista simples
+### A simple list
 
-- Este é um template padrão
-- Ele suporta formatação de texto rica
-- Sinta-se à vontade para apagar este post e escrever o seu
-- Obrigado por conferir!
+- This is a standard template
+- It supports rich text formatting
+- Feel free to delete this post and write your own
+- Thanks for checking it out!
 
-É isso, boa escrita!
+That's it, happy writing!
