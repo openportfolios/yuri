@@ -2,7 +2,7 @@
 title: "Olá, mundo!"
 description: "Um post de demonstração padrão mostrando tudo o que este blog suporta (português)."
 tags: ["Demo", "Guia", "Markdown"]
-date: "ANO-MES-DIA"
+date: "YYYY-MM-DD"
 ---
 
 # Olá, mundo!

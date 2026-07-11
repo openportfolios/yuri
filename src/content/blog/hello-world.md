@@ -2,7 +2,7 @@
 title: "Hello, world!"
 description: "A standard demo post showing everything this blog supports (english)."
 tags: ["Demo", "Guide", "Markdown"]
-date: "YEAR-MONTH-DAY"
+date: "YYYY-MM-DD"
 ---
 
 # Hello, world!
