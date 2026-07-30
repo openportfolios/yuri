@@ -5,8 +5,10 @@ import type { PortfolioConfigInput } from "@/lib/portfolio-config";
 
 type DiscordActivityConfig = PortfolioConfigInput["discordActivity"];
 
-const API_BASE = "https://grux.audibert.dev";
-const POLL_INTERVAL_MS = 10000;
+const WS_BASE = "wss://grux.audibert.dev";
+const RECONNECT_BASE_MS = 1000;
+const RECONNECT_MAX_MS = 30000;
+const IDLE_CLOSE_MS = 5000;
 
 const STATUS_COLORS: Record<string, string> = {
   online: "#23a55a",
@@ -37,6 +39,90 @@ type DiscordActivityData = {
   activity?: DiscordActivity[];
 };
 
+type GruxMessage = {
+  op: "initial_data" | "presence_update";
+  d: DiscordActivityData;
+};
+
+type Listener = (data: DiscordActivityData | null) => void;
+
+type Connection = {
+  socket: WebSocket | null;
+  listeners: Set<Listener>;
+  data: DiscordActivityData | null;
+  attempts: number;
+  reconnectTimer: ReturnType<typeof setTimeout> | null;
+  idleTimer: ReturnType<typeof setTimeout> | null;
+};
+
+// One socket per user id, shared by every component that renders the activity.
+const connections = new Map<string, Connection>();
+
+function connect(userId: string, conn: Connection) {
+  const socket = new WebSocket(`${WS_BASE}?user_id=${encodeURIComponent(userId)}`);
+  conn.socket = socket;
+
+  socket.onopen = () => {
+    conn.attempts = 0;
+  };
+
+  socket.onmessage = (event) => {
+    try {
+      const message: GruxMessage = JSON.parse(event.data);
+      if (message.op !== "initial_data" && message.op !== "presence_update") return;
+      conn.data = {
+        status: message.d.status,
+        spotify: message.d.spotify,
+        activity: message.d.activity,
+      };
+      conn.listeners.forEach((listener) => listener(conn.data));
+    } catch {
+      // Discord activity is a nice-to-have, fail silently.
+    }
+  };
+
+  socket.onclose = () => {
+    conn.socket = null;
+    if (conn.listeners.size === 0) return;
+    const delay = Math.min(RECONNECT_BASE_MS * 2 ** conn.attempts, RECONNECT_MAX_MS);
+    conn.attempts += 1;
+    conn.reconnectTimer = setTimeout(() => connect(userId, conn), delay);
+  };
+
+  socket.onerror = () => socket.close();
+}
+
+function subscribe(userId: string, listener: Listener) {
+  let conn = connections.get(userId);
+  if (!conn) {
+    conn = { socket: null, listeners: new Set(), data: null, attempts: 0, reconnectTimer: null, idleTimer: null };
+    connections.set(userId, conn);
+  }
+
+  if (conn.idleTimer) {
+    clearTimeout(conn.idleTimer);
+    conn.idleTimer = null;
+  }
+
+  conn.listeners.add(listener);
+  if (conn.data) listener(conn.data);
+  if (!conn.socket && !conn.reconnectTimer) connect(userId, conn);
+
+  return () => {
+    const current = connections.get(userId);
+    if (!current) return;
+    current.listeners.delete(listener);
+    if (current.listeners.size > 0) return;
+    // Grace period so remounts (and React strict mode) do not churn the socket.
+    current.idleTimer = setTimeout(() => {
+      if (current.listeners.size > 0) return;
+      if (current.reconnectTimer) clearTimeout(current.reconnectTimer);
+      current.socket?.close();
+      connections.delete(userId);
+    }, IDLE_CLOSE_MS);
+  };
+}
+
 function useDiscordActivity(config: DiscordActivityConfig) {
   const [data, setData] = useState<DiscordActivityData | null>(null);
   const enabled = config?.enabled ?? false;
@@ -47,25 +133,7 @@ function useDiscordActivity(config: DiscordActivityConfig) {
       setData(null);
       return;
     }
-
-    let cancelled = false;
-
-    async function fetchActivity() {
-      try {
-        const res = await fetch(`${API_BASE}/activity/${userId}`);
-        const json = await res.json();
-        if (!cancelled && json?.success) setData(json.data);
-      } catch {
-        // Discord activity is a nice-to-have, fail silently.
-      }
-    }
-
-    fetchActivity();
-    const interval = setInterval(fetchActivity, POLL_INTERVAL_MS);
-    return () => {
-      cancelled = true;
-      clearInterval(interval);
-    };
+    return subscribe(userId, setData);
   }, [enabled, userId]);
 
   return data;
