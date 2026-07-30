@@ -1,0 +1,33 @@
+name: Initialize portfolio from template
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  init:
+    # Only runs on copies created via "Use this template".
+    # In the original repository (openportfolios/yuri) this condition is false, so nothing happens.
+    if: github.repository != 'openportfolios/yuri'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update README
+        run: |
+          cat > README.md << 'EOF'
+          # Portfolio
+          My personal portfolio. Built with [OpenPortfolios](https://github.com/openportfolios).
+          EOF
+
+      - name: Remove this workflow (runs only once)
+        run: rm -f .github/workflows/init-template.yml
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: initialize portfolio from template"
