@@ -2,12 +2,15 @@ import { Fragment } from "react";
 import Link from "next/link";
 import { Credits } from "@/components/credits";
 import { DiscordActivitySection } from "@/components/discord-activity";
+import { GitHubStars } from "@/components/github-stars";
 import { PersonHeader } from "@/components/person-header";
 import { Reveal } from "@/components/reveal";
+import { parseGitHubRepo } from "@/lib/github";
 import {
   areAnimationsEnabled,
   hasItems,
   makePx,
+  scaleMultiplierFor,
   sectionOrder,
   sectionTitle,
   type OrderableSectionKey,
@@ -189,6 +192,7 @@ function ProjectsSection({ config }: SectionProps) {
       <h2 className="text-xl font-bold">{sectionTitle(config, "projects")}</h2>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {projects.map((project) => {
+          const repo = parseGitHubRepo(project.href);
           const card = (
             <div
               className="rounded-lg border flex h-full flex-col overflow-hidden p-3 transition-colors hover:bg-accent"
@@ -199,14 +203,19 @@ function ProjectsSection({ config }: SectionProps) {
                 <h3 className="break-words font-semibold tracking-tight text-base">{project.title}</h3>
                 <p className="font-mono text-xs text-pretty break-words" style={{ color: "hsl(var(--foreground) / 0.8)" }}>{renderRichText(project.description)}</p>
               </div>
-              <div className="mt-auto pt-3">
-                <ul className="flex list-none flex-wrap gap-1 p-0">
+              <div className="mt-auto flex items-center justify-between gap-2 pt-3">
+                <ul className="flex min-w-0 list-none flex-wrap gap-1 p-0">
                   {project.tags.slice(0, MAX_PROJECT_TAGS).map((tag) => (
                     <li key={tag} className="min-w-0 max-w-full">
                       <SecondaryBadge truncate px={px}>{tag}</SecondaryBadge>
                     </li>
                   ))}
                 </ul>
+                {repo ? (
+                  <div className="flex shrink-0">
+                    <GitHubStars repo={repo} scale={scaleMultiplierFor(config)} />
+                  </div>
+                ) : null}
               </div>
             </div>
           );

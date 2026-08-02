@@ -277,6 +277,9 @@ Lista dos seus projetos, exibida na seção "Projetos" como cards.
 > [!NOTE]
 >  O campo `tags` suporta até 3 tags.
 
+> [!TIP]
+>  Quando o `href` aponta para um repositório do GitHub (ex: `https://github.com/usuario/repo`), o número de estrelas do repositório aparece na mesma linha das tags, alinhado à direita do card. A contagem é buscada na API pública do GitHub pelo navegador; se o repositório for privado ou a API não responder, nada é exibido.
+
 ## Habilidades
 
 Lista simples de tecnologias/habilidades, exibida como badges na seção "Habilidades".
