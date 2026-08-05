@@ -10,12 +10,13 @@ Template de portfolio pessoal, pronto para usar, construído com [Next.js](https
 ## Índice
 
 1. [Recursos](#recursos)
-2. [Como usar](#como-usar)
-3. [Configuração](#configuração)
-4. [Rodando localmente](#rodando-localmente)
-5. [Estrutura do projeto](#estrutura-do-projeto)
-6. [Deploy](#deploy)
-7. [Licença](#licença)
+2. [Em breve](#em-breve)
+3. [Como usar](#como-usar)
+4. [Configuração](#configuração)
+5. [Rodando localmente](#rodando-localmente)
+6. [Estrutura do projeto](#estrutura-do-projeto)
+7. [Deploy](#deploy)
+8. [Licença](#licença)
 
 ## Recursos
 
@@ -28,6 +29,10 @@ Template de portfolio pessoal, pronto para usar, construído com [Next.js](https
 - **Temas claro, escuro e automático**, com escala visual ajustável (`small`, `medium`, `high`).
 - **Idiomas**: títulos de seção em português ou inglês (`meta.language`).
 - **Validação de configuração**: `portfolio.config.json` é validado contra o schema oficial (`@openportfolios/schema`) antes de cada build, com mensagens de erro claras.
+
+## Em breve
+
+- **Imagem de OG gerada automaticamente**: hoje `meta.ogImage` precisa ser uma URL própria; a próxima feature vai gerar essa imagem de prévia automaticamente a partir dos dados do `portfolio.config.json`, sem precisar criar uma imagem manualmente.
 
 ## Como usar
 
