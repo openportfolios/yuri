@@ -158,7 +158,7 @@ Suas informações pessoais e redes sociais, exibidas no cabeçalho do site.
 > [!NOTE]
 >  O campo `social` suporta até 6 redes.
 
-O projeto tem suporte aos seguintes ícones: GitHub, LinkedIn, Currículo, Instagram, TikTok, X (Twitter), YouTube e Spotify. 
+O projeto tem suporte aos seguintes ícones: E-mail, Currículo, GitHub, LinkedIn, Instagram, X (Twitter) e YouTube.
 
 ## Sobre
 
@@ -227,7 +227,7 @@ Lista das suas experiências profissionais, exibida na seção "Experiência Pro
 | `bullets` | `string[]` | Sim (pode ser `[]`) | Lista de realizações/responsabilidades, exibida como bullet points. Cada item suporta [texto rico](#texto-rico-rich-text). |
 
 > [!NOTE]
->  O campo `tags` suporta até 6 tags.
+>  O campo `tags` suporta até 5 tags.
 
 ## Formação Acadêmica
 
@@ -438,6 +438,7 @@ A ordenação "mais recente primeiro" funciona corretamente com qualquer um dest
 |---|---|
 | ISO (`AAAA-MM-DD`) recomendado | `"2026-03-31"` |
 | Por extenso em português | `"31 de março de 2026"` |
+| Por extenso em inglês | `"March 31, 2026"` |
 
 ### Conteúdo do post
 
