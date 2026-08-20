@@ -238,7 +238,7 @@ Lista da sua formação acadêmica, exibida na seção "Formação Acadêmica" (
   {
     "institution": "Nome da Universidade",
     "degree": "Bacharelado em Ciência da Computação",
-    "period": "Set 2025 - Presente"
+    "period": "Mês Ano - Presente"
   }
 ]
 ```
@@ -247,7 +247,7 @@ Lista da sua formação acadêmica, exibida na seção "Formação Acadêmica" (
 |---|---|---|---|
 | `institution` | `string` | Sim | Nome da instituição de ensino. |
 | `degree` | `string` | Sim | Curso/grau (ex: `"Bacharelado em Ciência da Computação"`). |
-| `period` | `string` | Sim | Período (texto livre, ex: `"Set 2025 - Presente"`). |
+| `period` | `string` | Sim | Período (texto livre, ex: `"Mês Ano - Presente"`). |
 
 ## Projetos
 
