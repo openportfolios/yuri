@@ -47,7 +47,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} antialiased`} style={{ fontSize: px(BASE_FONT_SIZE_PX) }} suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme={defaultTheme}>
+        {/* `disableTransitionOnChange` suppresses CSS transitions for the frame
+            in which the theme class flips. Without it, the `transition-colors`
+            the cards carry for their hover state also animates the theme swap,
+            so they fade over 150ms while untransitioned text switches at once. */}
+        <ThemeProvider attribute="class" defaultTheme={defaultTheme} disableTransitionOnChange>
           {children}
         </ThemeProvider>
       </body>
