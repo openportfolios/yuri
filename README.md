@@ -11,7 +11,7 @@ Este repositório é um template do GitHub. Para criar o seu portfolio:
 1. Clique em **"Use this template"** no topo da página do repositório e crie o seu próprio repositório a partir dele.
 2. Ao dar o primeiro `push` na branch `main` do seu repositório, um workflow automático substitui este README por um README simples do seu portfolio.
 3. Edite `portfolio.config.json` com as suas informações.
-4. Rode o projeto localmente usando `npm run build` e `npm run dev`.
+4. Rode o projeto localmente usando `npm install`, `npm run build` e `npm run start`.
 5. Faça o commit das suas mudanças.
 4. Publique o projeto (veja [DEPLOY.md](DEPLOY.md)).
 
