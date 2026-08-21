@@ -1,32 +1,29 @@
-# `portfolio.config.json` documentation
+# Documentação `portfolio.config.json`
 
-> [!NOTE]
-> This is the English documentation. For the Portuguese version, click [here](DOCUMENTACAO.md).
+Este documento explica **cada campo** do arquivo `portfolio.config.json` (localizado na raiz do projeto) e **como funciona o sistema de blog**. Não é necessário programar para usar nada do que está aqui, tudo é feito editando o `.json` e/ou criando arquivos `.md`.
 
-This document explains **every field** of the `portfolio.config.json` file (located at the root of the project) and **how the blog system works**. No programming is required for anything described here, everything is done by editing the `.json` and/or creating `.md` files.
+## Índice
 
-## Table of contents
-
-1. [Overview](#overview)
-2. [Removing sections](#removing-sections)
-3. [Reordering sections](#reordering-sections)
+1. [Visão geral](#visão-geral)
+2. [Removendo seções](#removendo-seções)
+3. [Reordenando seções](#reordenando-seções)
 4. [Meta](#meta)
-5. [Person](#person)
-6. [About](#about)
-7. [Work experience](#work-experience)
-8. [Education](#education)
-9. [Projects](#projects)
-10. [Skills](#skills)
-11. [Certifications](#certifications)
+5. [Pessoa](#pessoa)
+6. [Sobre](#sobre)
+7. [Experiência Profissional](#experiência-profissional)
+8. [Formação Acadêmica](#formação-acadêmica)
+9. [Projetos](#projetos)
+10. [Habilidades](#habilidades)
+11. [Certificações](#certificações)
 12. [Blog](#blog)
-13. [Activity](#activity)
-14. [Rich text](#rich-text)
-15. [Blog system](#blog-system-srccontentblogmd)
-16. [Running the project locally](#running-the-project-locally)
+13. [Atividade](#atividade)
+14. [Texto rico](#texto-rico-rich-text)
+15. [Sistema de blog](#sistema-de-blog-srccontentblogmd)
+16. [Rodando o projeto localmente](#rodando-o-projeto-localmente)
 
-## Overview
+## Visão geral
 
-The `portfolio.config.json` file is split into blocks, one per section of the site:
+O arquivo `portfolio.config.json` é dividido em blocos, um por seção do site:
 
 ```json
 {
@@ -43,24 +40,24 @@ The `portfolio.config.json` file is split into blocks, one per section of the si
 }
 ```
 
-The `meta` and `person` blocks are **required** (the portfolio does not work without them). Every other block (`about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog`, `discordActivity`) is **optional**, see the next section.
+Os blocos `meta` e `person` são **obrigatórios** (o portfolio não funciona sem eles). Todos os outros blocos (`about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog`, `discordActivity`) são **opcionais**, veja a seção seguinte.
 
-## Removing sections
+## Removendo seções
 
-Any optional section can be removed from the site by setting its value to `null`, for example:
+Qualquer seção opcional pode ser removida do site colocando `null` no lugar do valor, por exemplo:
 
 ```json
 "projects": null
 ```
 
-This makes the "Projects" section disappear from the page entirely, with no empty heading and no blank space left behind. This applies to: `about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog` and `discordActivity`.
+Isso faz a seção "Projetos" desaparecer completamente da página, sem deixar título vazio, sem espaço em branco. Isso vale para: `about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog` e `discordActivity`.
 
 > [!NOTE]
->  Empty arrays (`[]`) have the same effect as `null` for `workExperience`, `education`, `projects`, `skills` and `certifications`.
+>  Arrays vazios (`[]`) têm o mesmo efeito de `null` para `workExperience`, `education`, `projects`, `skills` e `certifications`.
 
-## Reordering sections
+## Reordenando seções
 
-The sections of the page appear **in the order the keys are written in `portfolio.config.json`**. To change the order, just move the whole block to a different place in the file. For example, to show "Projects" before "Work experience":
+As seções da página aparecem **na ordem em que as chaves estão escritas no `portfolio.config.json`**. Para mudar a ordem, basta mover o bloco inteiro de lugar dentro do arquivo. Por exemplo, para exibir "Projetos" antes de "Experiência Profissional":
 
 ```json
 {
@@ -74,68 +71,68 @@ The sections of the page appear **in the order the keys are written in `portfoli
 }
 ```
 
-This applies to: `about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog` and `discordActivity`.
+Isso vale para: `about`, `workExperience`, `education`, `projects`, `skills`, `certifications`, `blog` e `discordActivity`.
 
 > [!NOTE]
-> The header (`person`) is fixed: it always appears at the top of the page, regardless of its position in the file. The `meta` key is not a section and its position in the file changes nothing.
+> O cabeçalho (`person`) é fixo: ele sempre aparece no topo da página, independentemente da posição dele no arquivo. A chave `meta` não é uma seção e a posição dela no arquivo não muda nada.
 
 ## Meta
 
-General site settings.
+Configurações gerais do site.
 
 ```json
 "meta": {
-  "siteTitle": "Page title",
-  "siteDescription": "Your role / Title",
+  "siteTitle": "Título da página",
+  "siteDescription": "Seu cargo / Título",
   "ogImage": "https://placehold.co/1200x630.png",
   "favicon": "https://github.com/openportfolios.png",
   "defaultTheme": "light",
   "scale": "small",
-  "language": "en",
+  "language": "pt",
   "animations": true,
   "credits": true
 }
 ```
 
-| Field | Type | Required | Description |
+| Campo | Tipo | Obrigatório | Descrição |
 |---|---|---|---|
-| `siteTitle` | `string` | Yes | Browser tab title. |
-| `siteDescription` | `string` | Yes | Description used in the page metadata (link sharing preview). |
-| `ogImage` | `string` (URL) | Yes | Image used in the link sharing preview. |
-| `favicon` | `string` (URL) | No (default: `person.avatar`) | Image used as the browser tab icon. |
-| `defaultTheme` | `"light"`, `"dark"`, `"system"` | Yes | Initial theme of the site. |
-| `scale` | `"small"`, `"medium"`, `"high"` | No (default: `"small"`) | Controls the [visual scale](#visual-scale) of the portfolio, the overall size of fonts, icons and spacing. |
-| `language` | `"pt"`, `"en"` | No (default: `"en"`) | Language of the section titles (Sobre/About, Projetos/Projects, etc.). It does not translate the content you write yourself. |
-| `animations` | `boolean` | No (default: `true`) | Turns the entrance [animations](#animations) of the page elements on/off. |
-| `credits` | `boolean` | No (default: `true`) | Turns the small "Made with OpenPortfolios" [credit](#credits) in the site footer on/off. |
+| `siteTitle` | `string` | Sim | Título da aba do navegador. |
+| `siteDescription` | `string` | Sim | Descrição usada nos metadados da página (prévia ao compartilhar o link). |
+| `ogImage` | `string` (URL) | Sim | Imagem usada na prévia ao compartilhar o link. |
+| `favicon` | `string` (URL) | Não (padrão: `person.avatar`) | Imagem usada como ícone da aba do navegador. |
+| `defaultTheme` | `"light"`, `"dark"`, `"system"` | Sim | Tema inicial do site. |
+| `scale` | `"small"`, `"medium"`, `"high"` | Não (padrão: `"small"`) | Controla a [escala visual](#escala-visual) do portfolio, tamanho geral de fontes, ícones e espaçamentos. |
+| `language` | `"pt"`, `"en"` | Não (padrão: `"en"`) | Idioma dos títulos das seções (Sobre/About, Projetos/Projects, etc.). Não traduz o conteúdo que você mesmo escreve. |
+| `animations` | `boolean` | Não (padrão: `true`) | Liga/desliga as [animações](#animações) de entrada dos elementos da página. |
+| `credits` | `boolean` | Não (padrão: `true`) | Liga/desliga o pequeno crédito "Feito com OpenPortfolios" no [rodapé](#créditos) do site. |
 
-### Visual scale
+### Escala visual
 
-`meta.scale` has 3 levels:
+`meta.scale` tem 3 níveis:
 
-| Value | Effect |
+| Valor | Efeito |
 |---|---|
-| `"small"` | Default size (100%), the original design baseline. |
-| `"medium"` | Increases fonts, icons, avatar and spacing by **25%**. |
-| `"high"` | Increases fonts, icons, avatar and spacing by **50%**. |
+| `"small"` | Tamanho padrão (100%), o baseline original do design. |
+| `"medium"` | Aumenta fontes, ícones, avatar e espaçamentos em **25%**. |
+| `"high"` | Aumenta fontes, ícones, avatar e espaçamentos em **50%**. |
 
-### Animations
+### Animações
 
-`meta.animations` turns the smooth animation of the page elements on/off. With the animation enabled (`true`, the default), the content already visible when the page loads appears with a soft fade, and the content further down only appears as the user scrolls to it. With `false`, all the content appears right away, with no animation at all.
+`meta.animations` liga/desliga a animação suave dos elementos da página. Com a animação ativa (`true`, o padrão), o conteúdo já visível ao carregar a página aparece com um fade suave, e o conteúdo mais abaixo só aparece conforme o usuário rola a tela até ele. Com `false`, todo o conteúdo aparece direto, sem nenhuma animação.
 
-### Credits
+### Créditos
 
-`meta.credits` turns a small "Made with OpenPortfolios" credit in the site footer on/off. If `true` (the default), the credit appears on the home page and on every blog post page. If `false`, nothing is shown.
+`meta.credits` liga/desliga um pequeno crédito no rodapé do site "Feito com OpenPortfolios". Se `true` (o padrão), o crédito aparece na home e em toda página de post do blog. Se `false`, nada é exibido.
 
-## Person
+## Pessoa
 
-Your personal information and social links, shown in the site header.
+Suas informações pessoais e redes sociais, exibidas no cabeçalho do site.
 
 ```json
 "person": {
-  "name": "Your name",
-  "title": "Your role / Title",
-  "location": "Your city, Your country",
+  "name": "Seu nome",
+  "title": "Seu cargo / Título",
+  "location": "Sua cidade, Seu país",
   "avatar": "https://github.com/openportfolios.png",
   "social": [
     {
@@ -147,176 +144,176 @@ Your personal information and social links, shown in the site header.
 }
 ```
 
-| Field | Type | Required | Description |
+| Campo | Tipo | Obrigatório | Descrição |
 |---|---|---|---|
-| `name` | `string` | Yes | Your name, prominently displayed at the top of the site. |
-| `title` | `string` | Yes | Your role/title. |
-| `location` | `string` | Yes | Your location. |
-| `avatar` | `string` (URL) | Yes | URL of your profile picture. |
-| `social` | `array` | Yes (can be `[]`) | List of social networks/links. |
+| `name` | `string` | Sim | Seu nome, exibido em destaque no topo do site. |
+| `title` | `string` | Sim | Seu cargo/título. |
+| `location` | `string` | Sim | Sua localização. |
+| `avatar` | `string` (URL) | Sim | URL da sua foto de perfil. |
+| `social` | `array` | Sim (pode ser `[]`) | Lista de redes sociais/links. |
 
 > [!NOTE]
->  The `social` field supports up to 6 networks.
+>  O campo `social` suporta até 6 redes.
 
-The project ships with icons for: Email, Resume, GitHub, LinkedIn, Instagram, X (Twitter) and YouTube.
+O projeto tem suporte aos seguintes ícones: E-mail, Currículo, GitHub, LinkedIn, Instagram, X (Twitter) e YouTube.
 
-## About
+## Sobre
 
-The introduction text, shown in the "About" section.
+O texto de apresentação, exibido na seção "Sobre".
 
 ```json
 "about": {
   "text": [
-    "A short bio describing who you are, what you do and what drives you professionally. This is your chance to talk about your background, passions and current focus.",
-    "You can also use [colored text]{#8D62DD} and [links](https://github.com/openportfolios/yuri){#0EA5E9} in your bio."
+    "Uma breve biografia descrevendo quem você é, o que você faz e o que te motiva profissionalmente. Esta é a sua chance de falar sobre sua trajetória, paixões e foco atual.",
+    "Você também pode usar [texto colorido]{#8D62DD} e [links](https://github.com/openportfolios/yuri){#0EA5E9} na sua biografia."
   ]
 }
 ```
 
-| Field | Type | Description |
+| Campo | Tipo | Descrição |
 |---|---|---|
-| `text` | `string` or `string[]` | The bio text. Use a `string` for a single paragraph, or an array of strings for multiple paragraphs. |
+| `text` | `string` ou `string[]` | O texto da bio. Use uma `string` para um único parágrafo, ou um array de strings para múltiplos parágrafos. |
 
-Supports full [rich text](#rich-text).
+Suporta [texto rico](#texto-rico-rich-text) completo.
 
-Example with a single paragraph:
+Exemplo com um único parágrafo:
 
 ```json
 "about": {
-  "text": "Single bio paragraph."
+  "text": "Único parágrafo da bio."
 }
 ```
 
-## Work experience
+## Experiência Profissional
 
-The list of your professional experience, shown in the "Work experience" section.
+Lista das suas experiências profissionais, exibida na seção "Experiência Profissional".
 
 ```json
 "workExperience": [
   {
-    "company": "Company Name",
+    "company": "Nome da Empresa",
     "companyUrl": "https://www.company.com",
     "companyImage": "https://placehold.co/1366x768.png",
-    "companyDescription": "A short description of the company, what it does and its mission.",
-    "role": "Role",
-    "period": "Month Year - Present",
+    "companyDescription": "Uma breve descrição da empresa, o que ela faz e sua missão.",
+    "role": "Cargo",
+    "period": "Mês Ano - Presente",
     "tags": [
-      "Remote",
-      "Skill 1",
-      "Skill 2"
+      "Remoto",
+      "Habilidade 1",
+      "Habilidade 2"
     ],
     "bullets": [
-      "What you were responsible for in this job.",
-      "A specific project or system you built or contributed to.",
-      "The impact you had, such as improving performance, saving time or solving a problem.",
-      "Any other information you find relevant to show your skills and experience."
+      "Pelo que você era responsável neste emprego.",
+      "Projeto ou sistema específico que você construiu ou para o qual contribuiu.",
+      "Impacto que você teve, como melhorar o desempenho, economizar tempo ou resolver um problema.",
+      "Qualquer outra informação que você ache relevante para mostrar suas habilidades e experiência."
     ]
   }
 ]
 ```
 
-| Field | Type | Required | Description |
+| Campo | Tipo | Obrigatório | Descrição |
 |---|---|---|---|
-| `company` | `string` | Yes | Company name. |
-| `companyUrl` | `string` (URL) | Yes | Link to the company website (the company name becomes a link to this URL). |
-| `companyImage` | `string` (URL) | No | Image shown in a floating preview when hovering over the company name. If omitted, no preview is shown. |
-| `companyDescription` | `string` | No | A short sentence describing the company. Supports [rich text](#rich-text). |
-| `role` | `string` | Yes | Your role at the company. |
-| `period` | `string` | Yes | Period worked (free text, e.g. `"September 2025 - Present"`). |
-| `tags` | `string[]` | Yes (can be `[]`) | Tags shown next to the company name (e.g. work model, technologies). |
-| `bullets` | `string[]` | Yes (can be `[]`) | List of achievements/responsibilities, shown as bullet points. Each item supports [rich text](#rich-text). |
+| `company` | `string` | Sim | Nome da empresa. |
+| `companyUrl` | `string` (URL) | Sim | Link do site da empresa (o nome da empresa vira um link para essa URL). |
+| `companyImage` | `string` (URL) | Não | Imagem exibida num preview flutuante ao passar o mouse sobre o nome da empresa. Se omitido, nenhum preview é exibido. |
+| `companyDescription` | `string` | Não | Uma frase curta descrevendo a empresa. Suporta [texto rico](#texto-rico-rich-text). |
+| `role` | `string` | Sim | Seu cargo na empresa. |
+| `period` | `string` | Sim | Período trabalhado (texto livre, ex: `"Setembro 2025 - Presente"`). |
+| `tags` | `string[]` | Sim (pode ser `[]`) | Tags exibidas ao lado do nome da empresa (ex: modalidade, tecnologias). |
+| `bullets` | `string[]` | Sim (pode ser `[]`) | Lista de realizações/responsabilidades, exibida como bullet points. Cada item suporta [texto rico](#texto-rico-rich-text). |
 
 > [!NOTE]
->  The `tags` field supports up to 5 tags.
+>  O campo `tags` suporta até 5 tags.
 
-## Education
+## Formação Acadêmica
 
-The list of your academic background, shown in the "Education" section (below Work experience).
+Lista da sua formação acadêmica, exibida na seção "Formação Acadêmica" (abaixo da Experiência Profissional).
 
 ```json
 "education": [
   {
-    "institution": "University Name",
-    "degree": "Bachelor's Degree in Computer Science",
-    "period": "Month Year - Present"
+    "institution": "Nome da Universidade",
+    "degree": "Bacharelado em Ciência da Computação",
+    "period": "Mês Ano - Presente"
   }
 ]
 ```
 
-| Field | Type | Required | Description |
+| Campo | Tipo | Obrigatório | Descrição |
 |---|---|---|---|
-| `institution` | `string` | Yes | Name of the educational institution. |
-| `degree` | `string` | Yes | Course/degree (e.g. `"Bachelor's Degree in Computer Science"`). |
-| `period` | `string` | Yes | Period (free text, e.g. `"Month Year - Present"`). |
+| `institution` | `string` | Sim | Nome da instituição de ensino. |
+| `degree` | `string` | Sim | Curso/grau (ex: `"Bacharelado em Ciência da Computação"`). |
+| `period` | `string` | Sim | Período (texto livre, ex: `"Mês Ano - Presente"`). |
 
-## Projects
+## Projetos
 
-The list of your projects, shown as cards in the "Projects" section.
+Lista dos seus projetos, exibida na seção "Projetos" como cards.
 
 ```json
 "projects": [
   {
-    "title": "Project name",
-    "description": "What the project is and what it does.",
+    "title": "Nome do projeto",
+    "description": "O que é o projeto e o que ele faz.",
     "tags": [
-      "Technology 1",
-      "Technology 2"
+      "Tecnologia 1",
+      "Tecnologia 2"
     ],
     "href": "https://github.com/openportfolios/yuri"
   }
 ]
 ```
 
-| Field | Type | Required | Description |
+| Campo | Tipo | Obrigatório | Descrição |
 |---|---|---|---|
-| `title` | `string` | Yes | Project name. |
-| `description` | `string` | Yes | Short description. Supports [rich text](#rich-text). |
-| `tags` | `string[]` | Yes (can be `[]`) | Project tags, such as the technologies used. |
-| `href` | `string` (URL) | No | Link to the project. If omitted, the card is not clickable. |
+| `title` | `string` | Sim | Nome do projeto. |
+| `description` | `string` | Sim | Descrição curta. Suporta [texto rico](#texto-rico-rich-text). |
+| `tags` | `string[]` | Sim (pode ser `[]`) | Tags do projeto, como as tecnologias utilizadas. |
+| `href` | `string` (URL) | Não | Link do projeto. Se omitido, o card não é clicável. |
 
 > [!NOTE]
->  The `tags` field supports up to 3 tags.
+>  O campo `tags` suporta até 3 tags.
 
 > [!TIP]
->  When `href` points to a GitHub repository (e.g. `https://github.com/user/repo`), the repository's star count appears on the same line as the tags, aligned to the right of the card. The count is fetched from the public GitHub API by the browser; if the repository is private or the API does not respond, nothing is shown.
+>  Quando o `href` aponta para um repositório do GitHub (ex: `https://github.com/usuario/repo`), o número de estrelas do repositório aparece na mesma linha das tags, alinhado à direita do card. A contagem é buscada na API pública do GitHub pelo navegador; se o repositório for privado ou a API não responder, nada é exibido.
 
-## Skills
+## Habilidades
 
-A simple list of technologies/skills, shown as badges in the "Skills" section.
+Lista simples de tecnologias/habilidades, exibida como badges na seção "Habilidades".
 
 ```json
 "skills": ["Python", "Node.js", "AWS", "SQL", "Git"]
 ```
 
-It is just an array of strings, with no item limit.
+É apenas um array de strings, sem limite de itens.
 
-## Certifications
+## Certificações
 
-The list of your certifications, shown in the "Certifications" section.
+Lista das suas certificações, exibida na seção "Certificações".
 
 ```json
 "certifications": [
  {
-      "title": "Certification Name",
-      "issuer": "Institution Name",
+      "title": "Nome da Certificação",
+      "issuer": "Nome da Instituição",
       "certificationImage": "https://placehold.co/600x600",
-      "date": "Month Year",
+      "date": "Mês Ano",
       "href": "https://github.com/openportfolios/yuri"
     }
 ]
 ```
 
-| Field | Type | Required | Description |
+| Campo | Tipo | Obrigatório | Descrição |
 |---|---|---|---|
-| `title` | `string` | Yes | Certification name. |
-| `issuer` | `string` | Yes | Issuing institution (e.g. `"Amazon Web Services"`). |
-| `certificationImage` | `string` (URL) | No | Certification image/badge, shown next to the title. If omitted, the card shows text only. |
-| `date` | `string` | Yes | Issue date (free text, e.g. `"March 2025"`). |
-| `href` | `string` (URL) | No | Link to the credential. If present, the whole card becomes clickable (opens in a new tab). If omitted, the card is not clickable. |
+| `title` | `string` | Sim | Nome da certificação. |
+| `issuer` | `string` | Sim | Instituição emissora (ex: `"Amazon Web Services"`). |
+| `certificationImage` | `string` (URL) | Não | Imagem/badge da certificação, exibida ao lado do título. Se omitido, o card mostra só o texto. |
+| `date` | `string` | Sim | Data de emissão (texto livre, ex: `"Março 2025"`). |
+| `href` | `string` (URL) | Não | Link da credencial. Se presente, o card inteiro vira clicável (abre em nova aba). Se omitido, o card não é clicável. |
 
 ## Blog
 
-Turns the blog section on the home page on/off.
+Liga/desliga a seção de blog na página inicial.
 
 ```json
 "blog": {
@@ -324,122 +321,135 @@ Turns the blog section on the home page on/off.
 }
 ```
 
-| Field | Type | Description |
+| Campo | Tipo | Descrição |
 |---|---|---|
-| `enabled` | `boolean` | If `true`, the "Blog" section appears on the home page listing the posts from `src/content/blog/`. If `false`, the section does not appear. |
+| `enabled` | `boolean` | Se `true`, a seção "Blog" aparece na home listando os posts de `src/content/blog/`. Se `false`, a seção não aparece. |
 
 > [!NOTE]
->  The `tags` field supports up to 3 tags.
+>  O campo `tags` suporta até 3 tags.
 
-The content of the posts themselves does **not** come from `portfolio.config.json`. To create posts see the [blog system](#blog-system-srccontentblogmd).
+O conteúdo dos posts em si **não** vem do `portfolio.config.json`. Para criar blogs veja o [sistema de blog](#sistema-de-blog-srccontentblogmd).
 
-## Activity
+## Atividade
 
-Shows in real time what you are playing/listening to on Discord, plus a status indicator (online/idle/do not disturb/offline) next to your name.
+Mostra em tempo real o que você está jogando/ouvindo no Discord, além de um indicador de status (online/ausente/ocupado/offline) ao lado do seu nome.
 
 ```json
 "discordActivity": {
   "enabled": true,
-  "userId": "Your Discord user ID"
+  "userId": "Seu ID de usuário do Discord"
 }
 ```
 
-| Field | Type | Description |
+| Campo | Tipo | Descrição |
 |---|---|---|
-| `enabled` | `boolean` | Turns the section on/off. |
-| `userId` | `string` | Your Discord user ID. |
+| `enabled` | `boolean` | Liga/desliga a seção. |
+| `userId` | `string` | Seu ID de usuário do Discord. |
 
-The API that provides the Discord data is the [Grux API](https://github.com/matheusaudibert/grux), and for it to work you must be a member of this server:
+A API que fornece os dados do Discord é a [Grux API](https://github.com/matheusaudibert/grux) e para ela funcionar você deve ser membro deste servidor:
 
-[![Discord Server Card](https://cardzera.audibert.dev/api/1383718526694461532?t=1783293948510&buttonText=Join)](https://discord.gg/XuhsaMEqzf)
+[![Discord Server Card](https://cardzera.audibert.dev/api/1383718526694461532?t=1783293948510&buttonText=Entrar)](https://discord.gg/XuhsaMEqzf)
 
-## Rich text
+## Texto rico (rich text)
 
-There are **two different formatting engines** in this template, with different scopes and purposes:
+Existem **dois motores de formatação** diferentes neste template, com escopos diferentes de propósito:
 
-1. The text fields of `portfolio.config.json` (`about.text`, `companyDescription`, `bullets`, project `description`) use a lean formatter, deliberately limited to a closed list of syntaxes.
-2. The **body of blog posts** (`.md`) uses full Markdown, the same way GitHub renders a `README.md`.
+1. Os campos de texto do `portfolio.config.json` (`about.text`, `companyDescription`, `bullets`, `description` de projetos) usam um formatador enxuto e propositalmente limitado a uma lista fechada de sintaxes.
+2. O **corpo dos posts do blog** (`.md`) usa Markdown completo, do mesmo jeito que o GitHub renderiza um `README.md`.
 
-### `portfolio.config.json` fields
+### Campos do `portfolio.config.json`
 
-These fields accept **only** the list below (it is the same text formatting list used by GitHub, without the features exclusive to Issues/Discussions):
+Estes campos aceitam **apenas** a lista abaixo (é a mesma lista de formatação de texto usada pelo GitHub, sem os recursos exclusivos de Issues/Discussions):
 
-| Style | Syntax | Example | Result |
+| Estilo | Sintaxe | Exemplo | Resultado |
 |---|---|---|---|
-| Bold | `** **` or `__ __` | `**bold**` | **bold** |
-| Italic | `* *` or `_ _` | `*italic*` | *italic* |
-| Strikethrough | `~~ ~~` or `~ ~` | `~~strikethrough~~` | ~~strikethrough~~ |
-| Subscript | `<sub></sub>` | `<sub>subscript</sub>` | <sub>subscript</sub> |
-| Superscript | `<sup></sup>` | `<sup>superscript</sup>` | <sup>superscript</sup> |
-| Underline | `<ins></ins>` | `<ins>underline</ins>` | <ins>underline</ins> |
-| Code | `` ` ` `` | `` `code` `` | `code` |
+| Negrito | `** **` ou `__ __` | `**negrito**` | **negrito** |
+| Itálico | `* *` ou `_ _` | `*itálico*` | *itálico* |
+| Riscado | `~~ ~~` ou `~ ~` | `~~riscado~~` | ~~riscado~~ |
+| Subscrito | `<sub></sub>` | `<sub>subscrito</sub>` | <sub>subscrito</sub> |
+| Sobrescrito | `<sup></sup>` | `<sup>sobrescrito</sup>` | <sup>sobrescrito</sup> |
+| Sublinhado | `<ins></ins>` | `<ins>sublinhado</ins>` | <ins>sublinhado</ins> |
+| Código | `` ` ` `` | `` `código` `` | `código` |
 
-Beyond that list, these fields also support **links, with or without a custom color** (a feature of this template, not part of the list above):
+Além dessa lista, esses campos também suportam **links, com ou sem cor customizada** (recurso próprio deste template, não faz parte da lista acima):
 
-| Syntax | Result |
+| Sintaxe | Resultado |
 |---|---|
-| `[text](url)` | Clickable link, with the default theme color. |
-| `[text](url){#hex}` | Clickable link, with a custom color. |
-| `[text]{#hex}` | Custom color only. |
+| `[texto](url)` | Link clicável, com a cor padrão do tema. |
+| `[texto](url){#hex}` | Link clicável, com cor customizada. |
+| `[texto]{#hex}` | Apenas cor customizada. |
 
-The color must be a hexadecimal code (`#rrggbb`, or `#rrggbbaa` to include transparency).
+A cor deve ser um código hexadecimal (`#rrggbb` ou `#rrggbbaa` para incluir transparência).
 
-### Blog post body
+### Corpo dos posts do blog
 
-The body of a post (`src/content/blog/*.md`) runs full Markdown, which includes:
+O corpo de um post (`src/content/blog/*.md`) roda um Markdown completo, isso inclui:
 
-- Headings `#` to `######` (h1–h6).
-- **Bold**, *italic*, ~~strikethrough~~, `code`, `<sub>`, `<sup>`, `<ins>`.
-- Ordered lists, bulleted lists, and task lists (`- [ ]` / `- [x]`).
-- Images (`![alt](url)` or `<img src="url" width="x" />`).
-- Blockquotes (`>`).
-- Footnotes (`[^1]` ... `[^1]: explanation`).
-- Emoji shortcodes, e.g. `:tada:` (🎉), `:rocket:` (🚀), `:+1:` (👍).
-- Custom colors (`{#hex}`).
-- HTML comments (`<!-- ... -->`) to hide content from the rendered text.
-- Escaping formatting with `\` (e.g. `\*this does not become italic\*`).
+- Títulos `#` a `######` (h1–h6).
+- **Negrito**, *itálico*, ~~riscado~~, `código`, `<sub>`, `<sup>`, `<ins>`.
+- Listas numeradas, com marcadores, e listas de tarefas (`- [ ]` / `- [x]`).
+- Imagens (`![alt](url)` ou `<img src="url" width="x" />`).
+- Citações (`>`).
+- Notas de rodapé (`[^1]` ... `[^1]: explicação`).
+- Emojis por atalho, ex: `:tada:` (🎉), `:rocket:` (🚀), `:+1:` (👍).
+- Cores customizadas (`{#hex}`).
+- Comentários HTML (`<!-- ... -->`) para esconder conteúdo do texto renderizado.
+- Escapar formatação com `\` (ex: `\*isso não vira itálico\*`).
 
-## Blog system (`src/content/blog/*.md`)
+## Sistema de blog (`src/content/blog/*.md`)
 
-The blog does **not** use `portfolio.config.json` (beyond the on/off switch in `blog.enabled`). Each post is a Markdown file inside `src/content/blog/`.
+O blog **não** usa o `portfolio.config.json` (além do liga/desliga em `blog.enabled`). Cada post é um arquivo Markdown dentro de `src/content/blog/`.
 
-### Publishing a new post
+### Como publicar um novo post
 
-1. Create a `.md` file in `src/content/blog/`, for example `src/content/blog/my-post.md`. The file name (without `.md`) becomes the post URL: `/blog/my-post`.
-2. Fill in the frontmatter at the top of the file:
+1. Crie um arquivo `.md` em `src/content/blog/`, por exemplo `src/content/blog/meu-post.md`. O nome do arquivo (sem `.md`) vira a URL do post: `/blog/meu-post`.
+2. Preencha o frontmatter no topo do arquivo:
 
    ```markdown
    ---
-   title: "Post title"
-   description: "Short description, used on the card in the blog list."
+   title: "Título do post"
+   description: "Descrição curta, usada no card da lista de blog."
    tags: ["Tag1", "Tag2"]
    date: "2026-03-31"
    ---
 
-   Post content in regular Markdown from here on.
+   Conteúdo do post em Markdown normal a partir daqui.
    ```
 
-3. Save the file. There is no need to restart the server or register the post anywhere else, it shows up automatically in the "Blog" section of the home page, sorted by date (most recent first).
+3. Salve o arquivo. Não é necessário reiniciar o servidor nem registrar o post em nenhum outro lugar, ele aparece automaticamente na seção "Blog" da home, ordenado por data (mais recente primeiro).
 
-### Frontmatter fields
+### Campos do frontmatter
 
-| Field | Type | Description |
+| Campo | Tipo | Descrição |
 |---|---|---|
-| `title` | `string` | Post title. |
-| `description` | `string` | Short description shown on the card in the post list. Supports [rich text](#rich-text). |
-| `tags` | `string[]` | Tags shown on the card and on the post page. |
-| `date` | `string` | Publication date. See the accepted formats below. |
+| `title` | `string` | Título do post. |
+| `description` | `string` | Descrição curta exibida no card da lista de posts. Suporta [texto rico](#texto-rico-rich-text). |
+| `tags` | `string[]` | Tags exibidas no card e na página do post. |
+| `date` | `string` | Data de publicação. Veja os formatos aceitos abaixo. |
 
-### Accepted date formats
+### Formatos de data aceitos
 
-The "most recent first" sorting works correctly with any of these formats:
+A ordenação "mais recente primeiro" funciona corretamente com qualquer um destes formatos:
 
-| Format | Example |
+| Formato | Exemplo |
 |---|---|
-| ISO (`YYYY-MM-DD`), recommended | `"2026-03-31"` |
-| Long form in Portuguese | `"31 de março de 2026"` |
-| Long form in English | `"March 31, 2026"` |
+| ISO (`AAAA-MM-DD`) recomendado | `"2026-03-31"` |
+| Por extenso em português | `"31 de março de 2026"` |
+| Por extenso em inglês | `"March 31, 2026"` |
 
-### Post content
+### Conteúdo do post
 
-The body of the file (everything after the frontmatter) is full Markdown. See the complete list of supported features in [Blog post body](#blog-post-body).
+O corpo do arquivo (tudo depois do frontmatter) é Markdown completo. Veja a lista completa de recursos suportados em [Corpo dos posts do blog](#corpo-dos-posts-do-blog).
+
+## Rodando o projeto localmente
+
+```bash
+npm install    # instala as dependências
+npm run dev    # inicia o servidor de desenvolvimento em http://localhost:3000
+npm run build  # gera a versão de produção
+npm run start  # roda a versão de produção já buildada
+```
+
+Depois de qualquer alteração no `portfolio.config.json`, o servidor de desenvolvimento (`npm run dev`) recarrega automaticamente. Alterações em posts do blog (`.md`) também são refletidas sem precisar reiniciar nada.
+
+Para publicar o site, veja [DEPLOY.md](DEPLOY.md).
