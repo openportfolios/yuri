@@ -22,7 +22,6 @@ export function ThemeToggle({ buttonSize = px(32), iconSize = px(16) }: { button
       style={{
         width: buttonSize, height: buttonSize, flexShrink: 0,
         border: "1px solid hsl(var(--input))",
-        backgroundColor: "hsl(var(--background))",
         color: "hsl(var(--foreground))",
       }}
     >

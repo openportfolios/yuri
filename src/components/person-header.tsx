@@ -71,7 +71,6 @@ function SocialButton({ href, label, size, children }: { href: string; label: st
       style={{
         width: size, height: size, flexShrink: 0,
         border: "1px solid hsl(var(--input))",
-        backgroundColor: "hsl(var(--background))",
         color: "hsl(var(--foreground))",
         textDecoration: "none",
       }}

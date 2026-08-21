@@ -8,6 +8,12 @@ import { useEffect, useRef, useState } from "react";
 // Transitions only opacity/transform (not "all") so it never slows down
 // unrelated changes like a light/dark theme switch. Disable via the
 // `enabled` prop (wired to `meta.animations` in portfolio.config.json).
+// While opacity animates, the subtree is promoted to its own compositing
+// layer, and Chrome blends that layer slightly darker than the same color
+// painted normally. So nothing inside may carry an opaque background that is
+// meant to match the page background (`--card` and `--background` are the
+// same value in both themes) — it would show up as a darker rectangle for the
+// duration of the fade. Cards are drawn with their border alone.
 // `atPageEnd` disables the -40px bottom inset — elements at the very bottom
 // of the page (e.g. the credits line) can never scroll 40px past the viewport
 // edge, so with the inset they would stay invisible forever on short screens.

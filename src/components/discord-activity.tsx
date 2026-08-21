@@ -172,7 +172,7 @@ export function DiscordActivitySection({ config, title }: { config: DiscordActiv
   if (!data.spotify && activities.length === 0) return null;
 
   const cardClassName = "rounded-lg border flex h-full items-center gap-x-3 overflow-hidden p-3";
-  const cardStyle = { backgroundColor: "hsl(var(--card))", borderColor: "hsl(var(--border))" };
+  const cardStyle = { borderColor: "hsl(var(--border))" };
 
   return (
     <section className="flex min-h-0 flex-col gap-y-3 print:hidden">

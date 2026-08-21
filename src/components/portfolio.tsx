@@ -99,7 +99,7 @@ function WorkExperienceSection({ config }: SectionProps) {
       <h2 className="text-xl font-bold">{sectionTitle(config, "workExperience")}</h2>
       <div className="flex flex-col gap-y-4">
         {workExperience.map((job) => (
-          <div key={job.company} className="rounded-lg py-1 print:py-0" style={{ backgroundColor: "hsl(var(--card))", color: "hsl(var(--card-foreground))" }}>
+          <div key={job.company} className="rounded-lg py-1 print:py-0" style={{ color: "hsl(var(--card-foreground))" }}>
             <div className="flex flex-col space-y-1.5 print:space-y-1">
               <div className="flex items-start justify-between gap-x-2 text-base">
                 <h3 className="inline-flex min-w-0 flex-1 flex-wrap items-center gap-x-1 gap-y-1 break-words font-semibold leading-none">
@@ -166,7 +166,7 @@ function EducationSection({ config }: SectionProps) {
       <h2 className="text-xl font-bold">{sectionTitle(config, "education")}</h2>
       <div className="flex flex-col gap-y-4">
         {education.map((edu) => (
-          <div key={edu.institution} className="rounded-lg py-1 print:py-0" style={{ backgroundColor: "hsl(var(--card))", color: "hsl(var(--card-foreground))" }}>
+          <div key={edu.institution} className="rounded-lg py-1 print:py-0" style={{ color: "hsl(var(--card-foreground))" }}>
             <div className="flex flex-col space-y-1.5 print:space-y-1">
               <div className="flex items-start justify-between gap-x-2 text-base">
                 <h3 className="min-w-0 flex-1 break-words font-semibold leading-none">{edu.institution}</h3>
@@ -196,7 +196,7 @@ function ProjectsSection({ config }: SectionProps) {
           const card = (
             <div
               className="rounded-lg border flex h-full flex-col overflow-hidden p-3 transition-colors hover:bg-accent"
-              style={{ backgroundColor: "hsl(var(--card))", borderColor: "hsl(var(--border))" }}
+              style={{ borderColor: "hsl(var(--border))" }}
               role="article"
             >
               <div className="flex flex-col space-y-1">
@@ -262,7 +262,7 @@ function CertificationsSection({ config }: SectionProps) {
           const card = (
             <div
               className="rounded-lg border flex h-full items-center gap-x-3 overflow-hidden p-3 transition-colors hover:bg-accent"
-              style={{ backgroundColor: "hsl(var(--card))", borderColor: "hsl(var(--border))" }}
+              style={{ borderColor: "hsl(var(--border))" }}
               role="article"
             >
               {cert.certificationImage && (
@@ -307,7 +307,7 @@ function BlogSection({ config, posts }: SectionProps & { posts: PortfolioBlogPos
           <Link key={post.slug} href={`/blog/${post.slug}`} className="hover:no-underline" style={{ textDecoration: "none", color: "inherit" }}>
             <div
               className="rounded-lg border flex h-full flex-col overflow-hidden p-3 transition-colors hover:bg-accent"
-              style={{ backgroundColor: "hsl(var(--card))", borderColor: "hsl(var(--border))" }}
+              style={{ borderColor: "hsl(var(--border))" }}
               role="article"
             >
               <div className="flex flex-col space-y-1">
