@@ -1,7 +1,7 @@
-import { makePx, uiString, type PortfolioConfigInput } from "@/lib/portfolio-config";
+import { areCreditsEnabled, makePx, uiString, type PortfolioConfigInput } from "@/lib/portfolio-config";
 
 export function Credits({ config }: { config: PortfolioConfigInput }) {
-  if (!(config.meta.credits ?? true)) return null;
+  if (!areCreditsEnabled(config)) return null;
 
   const px = makePx(config);
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { BASE_FONT_SIZE_PX, portfolioConfig, px } from "@/lib/portfolio-config";
+import { BASE_FONT_SIZE_PX, portfolioConfig, px, resolveLanguage, resolveTheme } from "@/lib/portfolio-config";
 import "./globals.css";
 
 const inter = Inter({
@@ -9,7 +9,12 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const { siteTitle, siteDescription, ogImage, defaultTheme } = portfolioConfig.meta;
+const { siteTitle, siteDescription, ogImage } = portfolioConfig.meta;
+
+// Resolved (not read raw) so a bad value in the config file can't reach
+// next-themes or the <html lang> attribute.
+const defaultTheme = resolveTheme(portfolioConfig);
+const htmlLang = resolveLanguage(portfolioConfig);
 
 // Next.js doesn't prepend basePath to the auto-generated icon.tsx <link> href
 // (https://github.com/vercel/next.js/issues/61487), so it's set explicitly here.
@@ -45,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`} style={{ fontSize: px(BASE_FONT_SIZE_PX) }} suppressHydrationWarning>
+    <html lang={htmlLang} className={`${inter.variable} antialiased`} style={{ fontSize: px(BASE_FONT_SIZE_PX) }} suppressHydrationWarning>
       <body suppressHydrationWarning>
         {/* `disableTransitionOnChange` suppresses CSS transitions for the frame
             in which the theme class flips. Without it, the `transition-colors`

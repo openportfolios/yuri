@@ -18,20 +18,67 @@ export type {
   DiscordActivity,
 } from "@openportfolios/schema";
 
-// Icons this template ships for person.social entries (the schema allows any
-// string for `icon`; unknown values simply render no icon).
-export type SocialIconKey =
-  | "email"
-  | "resume"
-  | "github"
-  | "linkedin"
-  | "instagram"
-  | "x"
-  | "youtube";
+// Icons this template ships for person.social entries. The schema allows any
+// string for `icon`, so unknown values fall back to a question-mark icon
+// (see socialIcon() in components/person-header.tsx).
+export const SOCIAL_ICON_KEYS = [
+  "email",
+  "resume",
+  "github",
+  "linkedin",
+  "instagram",
+  "x",
+  "youtube",
+] as const;
+
+export type SocialIconKey = (typeof SOCIAL_ICON_KEYS)[number];
 
 export type ScaleLevel = NonNullable<PortfolioConfigInput["meta"]["scale"]>;
 
 export type Language = NonNullable<PortfolioConfigInput["meta"]["language"]>;
+
+export type ThemeName = PortfolioConfigInput["meta"]["defaultTheme"];
+
+// ── meta value resolution ─────────────────────────────────────────────────────
+// What the site renders is the raw portfolio.config.json: nothing re-validates
+// it at runtime (scripts/validate-config.mjs only guards `npm run build`, and
+// the file can be edited afterwards). So every constrained `meta` value goes
+// through a resolver that falls back to this template's default instead of
+// letting an out-of-range value produce NaN sizes or crash the page.
+
+function oneOf<T extends string>(allowed: readonly T[], value: unknown, fallback: T): T {
+  return (allowed as readonly string[]).includes(value as string) ? (value as T) : fallback;
+}
+
+// Non-booleans (a "false" string, a number, a typo) fall back to the default
+// rather than being read for truthiness.
+function flag(value: unknown, fallback: boolean): boolean {
+  return typeof value === "boolean" ? value : fallback;
+}
+
+export const SCALE_LEVELS = ["small", "medium", "high"] as const;
+export const LANGUAGES = ["pt", "en"] as const;
+export const THEMES = ["light", "dark", "system"] as const;
+
+export const DEFAULT_SCALE: ScaleLevel = "small";
+export const DEFAULT_LANGUAGE: Language = "pt";
+export const DEFAULT_THEME: ThemeName = "system";
+
+export function resolveScale(config: PortfolioConfigInput): ScaleLevel {
+  return oneOf(SCALE_LEVELS, config.meta?.scale, DEFAULT_SCALE);
+}
+
+export function resolveLanguage(config: PortfolioConfigInput): Language {
+  return oneOf(LANGUAGES, config.meta?.language, DEFAULT_LANGUAGE);
+}
+
+export function resolveTheme(config: PortfolioConfigInput): ThemeName {
+  return oneOf(THEMES, config.meta?.defaultTheme, DEFAULT_THEME);
+}
+
+export function isSocialIconKey(icon: unknown): icon is SocialIconKey {
+  return (SOCIAL_ICON_KEYS as readonly unknown[]).includes(icon);
+}
 
 // Sections are optional in the JSON file — omitting a key (or setting it to
 // null) is how a user removes that part of the site.
@@ -79,7 +126,12 @@ export function hasItems<T>(value: T[] | null | undefined): value is T[] {
 // Scroll-reveal animations are on by default; set meta.animations to false
 // in portfolio.config.json to turn them off.
 export function areAnimationsEnabled(config: PortfolioConfigInput): boolean {
-  return config.meta.animations ?? true;
+  return flag(config.meta?.animations, true);
+}
+
+// The "Built with OpenPortfolios" footer; on by default, same rules.
+export function areCreditsEnabled(config: PortfolioConfigInput): boolean {
+  return flag(config.meta?.credits, true);
 }
 
 type SectionKey = "about" | "workExperience" | "education" | "projects" | "skills" | "certifications" | "blog" | "activity";
@@ -107,10 +159,9 @@ const SECTION_TITLES: Record<Language, Record<SectionKey, string>> = {
   },
 };
 
-// Section headings are translated based on `meta.language` ("en" or "pt").
+// Section headings are translated based on `meta.language` ("pt" or "en").
 export function sectionTitle(config: PortfolioConfigInput, key: SectionKey): string {
-  const language = config.meta.language ?? "en";
-  return SECTION_TITLES[language][key];
+  return SECTION_TITLES[resolveLanguage(config)][key];
 }
 
 type UIStringKey = "builtWith" | "backHome" | "notFoundTitle" | "notFoundDescription" | "footnotesLabel";
@@ -135,8 +186,7 @@ const UI_STRINGS: Record<Language, Record<UIStringKey, string>> = {
 // Small bits of chrome UI text (not section headings) translated the same
 // way as `sectionTitle`, based on `meta.language`.
 export function uiString(config: PortfolioConfigInput, key: UIStringKey): string {
-  const language = config.meta.language ?? "en";
-  return UI_STRINGS[language][key];
+  return UI_STRINGS[resolveLanguage(config)][key];
 }
 
 const SCALE_MULTIPLIERS: Record<ScaleLevel, number> = {
@@ -148,7 +198,7 @@ const SCALE_MULTIPLIERS: Record<ScaleLevel, number> = {
 export const BASE_FONT_SIZE_PX = 16;
 
 export function scaleMultiplierFor(config: PortfolioConfigInput): number {
-  return SCALE_MULTIPLIERS[config.meta.scale ?? "small"];
+  return SCALE_MULTIPLIERS[resolveScale(config)];
 }
 
 // Converts a design value authored at the "small" (1x) baseline into the

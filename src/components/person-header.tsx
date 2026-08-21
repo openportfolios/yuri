@@ -1,8 +1,8 @@
-import { FileText, Globe, Mail } from "lucide-react";
+import { CircleQuestionMark, FileText, Globe, Mail } from "lucide-react";
 import Link from "next/link";
 import { DiscordStatusDot } from "@/components/discord-activity";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { makePx, type PortfolioConfigInput, type SocialIconKey } from "@/lib/portfolio-config";
+import { isSocialIconKey, makePx, type PortfolioConfigInput, type SocialIconKey } from "@/lib/portfolio-config";
 
 // ── Brand SVG icons ───────────────────────────────────────────────────────────
 function GithubIcon({ size = 14 }: { size?: number }) {
@@ -45,7 +45,10 @@ function YoutubeIcon({ size = 14 }: { size?: number }) {
   );
 }
 
-function socialIcon(icon: SocialIconKey, size: number): React.ReactNode {
+// `icon` is an unconstrained string in the schema, so anything the template
+// doesn't ship renders as a question mark rather than an empty button.
+function socialIcon(icon: unknown, size: number): React.ReactNode {
+  if (!isSocialIconKey(icon)) return <CircleQuestionMark size={size} />;
   const icons: Record<SocialIconKey, React.ReactNode> = {
     email: <Mail size={size} />,
     resume: <FileText size={size} />,
@@ -55,7 +58,7 @@ function socialIcon(icon: SocialIconKey, size: number): React.ReactNode {
     x: <XIcon size={size} />,
     youtube: <YoutubeIcon size={size} />,
   };
-  return icons[icon] ?? null;
+  return icons[icon];
 }
 
 const MAX_SOCIAL_LINKS = 6;
@@ -105,7 +108,7 @@ export function PersonHeader({ config }: { config: PortfolioConfigInput }) {
         <div className="flex gap-x-1 pt-1 font-mono text-sm print:hidden">
           {person.social.slice(0, MAX_SOCIAL_LINKS).map((s) => (
             <SocialButton key={s.label} href={s.href} label={s.label} size={px(32)}>
-              {socialIcon(s.icon as SocialIconKey, px(16))}
+              {socialIcon(s.icon, px(16))}
             </SocialButton>
           ))}
           <ThemeToggle buttonSize={px(32)} iconSize={px(16)} />

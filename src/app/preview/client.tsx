@@ -6,6 +6,7 @@ import { validateConfig } from "@openportfolios/schema";
 import { Portfolio, type PortfolioBlogPost } from "@/components/portfolio";
 import {
   BASE_FONT_SIZE_PX,
+  resolveTheme,
   scaleMultiplierFor,
   type PortfolioConfigInput,
 } from "@/lib/portfolio-config";
@@ -60,9 +61,9 @@ export function PreviewClient({ defaultConfig, posts }: { defaultConfig: Portfol
     };
   }, [rootFontSize]);
 
-  const defaultTheme = config.meta.defaultTheme;
+  const defaultTheme = resolveTheme(config);
   useEffect(() => {
-    if (defaultTheme) setTheme(defaultTheme);
+    setTheme(defaultTheme);
   }, [defaultTheme, setTheme]);
 
   return <Portfolio config={config} posts={posts} />;

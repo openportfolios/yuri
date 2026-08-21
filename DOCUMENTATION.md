@@ -100,9 +100,9 @@ Configurações gerais do site.
 | `siteDescription` | `string` | Sim | Descrição usada nos metadados da página (prévia ao compartilhar o link). |
 | `ogImage` | `string` (URL) | Sim | Imagem usada na prévia ao compartilhar o link. |
 | `favicon` | `string` (URL) | Não (padrão: `person.avatar`) | Imagem usada como ícone da aba do navegador. |
-| `defaultTheme` | `"light"`, `"dark"`, `"system"` | Sim | Tema inicial do site. |
-| `scale` | `"small"`, `"medium"`, `"high"` | Não (padrão: `"small"`) | Controla a [escala visual](#escala-visual) do portfolio, tamanho geral de fontes, ícones e espaçamentos. |
-| `language` | `"pt"`, `"en"` | Não (padrão: `"en"`) | Idioma dos títulos das seções (Sobre/About, Projetos/Projects, etc.). Não traduz o conteúdo que você mesmo escreve. |
+| `defaultTheme` | `"light"`, `"dark"`, `"system"` | Sim | Tema inicial do site. Qualquer outro valor cai em `"system"`. |
+| `scale` | `"small"`, `"medium"`, `"high"` | Não (padrão: `"small"`) | Controla a [escala visual](#escala-visual) do portfolio, tamanho geral de fontes, ícones e espaçamentos. Qualquer outro valor cai em `"small"`. |
+| `language` | `"pt"`, `"en"` | Não (padrão: `"pt"`) | Idioma dos títulos das seções (Sobre/About, Projetos/Projects, etc.). Não traduz o conteúdo que você mesmo escreve. Qualquer outro valor cai em `"pt"`. |
 | `animations` | `boolean` | Não (padrão: `true`) | Liga/desliga as [animações](#animações) de entrada dos elementos da página. |
 | `credits` | `boolean` | Não (padrão: `true`) | Liga/desliga o pequeno crédito "Feito com OpenPortfolios" no [rodapé](#créditos) do site. |
 
@@ -155,7 +155,7 @@ Suas informações pessoais e redes sociais, exibidas no cabeçalho do site.
 > [!NOTE]
 >  O campo `social` suporta até 6 redes.
 
-O projeto tem suporte aos seguintes ícones: E-mail, Currículo, GitHub, LinkedIn, Instagram, X (Twitter) e YouTube.
+O projeto tem suporte aos seguintes ícones: E-mail (`email`), Currículo (`resume`), GitHub (`github`), LinkedIn (`linkedin`), Instagram (`instagram`), X/Twitter (`x`) e YouTube (`youtube`). Qualquer outro valor em `icon` exibe um ícone de ponto de interrogação.
 
 ## Sobre
 
