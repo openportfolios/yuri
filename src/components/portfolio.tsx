@@ -297,7 +297,7 @@ function CertificationsSection({ config }: SectionProps) {
 
 function BlogSection({ config, posts }: SectionProps & { posts: PortfolioBlogPost[] }) {
   const px = makePx(config);
-  if (!config.blog?.enabled) return null;
+  if (!config.blog?.enabled || !hasItems(posts)) return null;
   return (
     <Reveal enabled={areAnimationsEnabled(config)}>
     <section className="flex min-h-0 flex-col gap-y-3 print:gap-y-1">
