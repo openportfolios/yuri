@@ -24,6 +24,11 @@ jobs:
           My personal portfolio. Built with [OpenPortfolios](https://github.com/openportfolios).
           EOF
 
+      - name: Remove template-only files
+        run: |
+          rm -rf media
+          rm -f src/content/blog/hello-world.md src/content/blog/ola-mundo.md
+
       - name: Remove this workflow (runs only once)
         run: rm -f .github/workflows/init-template.yml
 
