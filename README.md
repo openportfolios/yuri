@@ -22,3 +22,5 @@ Todo o conteúdo do site é controlado pelo arquivo `portfolio.config.json`, na 
 A documentação completa de cada campo, incluindo como remover e reordenar seções, formatos de texto rico aceitos e como publicar posts no blog, está em [DOCUMENTATION.md](DOCUMENTATION.md).
 
 Distribuído sob a licença MIT. Veja [LICENSE](LICENSE) para mais detalhes.
+
+_Considere deixar uma ⭐ estrela no projeto, isso significa muito :)_
