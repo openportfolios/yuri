@@ -6,6 +6,7 @@ import type { PortfolioConfigInput } from "@/lib/portfolio-config";
 type DiscordActivityConfig = PortfolioConfigInput["discordActivity"];
 
 const WS_BASE = "wss://grux.audibert.dev";
+const REST_BASE = "https://grux.audibert.dev";
 const RECONNECT_BASE_MS = 1000;
 const RECONNECT_MAX_MS = 30000;
 const IDLE_CLOSE_MS = 5000;
@@ -63,10 +64,35 @@ type Connection = {
   attempts: number;
   reconnectTimer: ReturnType<typeof setTimeout> | null;
   idleTimer: ReturnType<typeof setTimeout> | null;
+  seeded: boolean;
+  // Bumped on every socket update so a slower REST seed never overwrites it.
+  version: number;
 };
 
 // One socket per user id, shared by every component that renders the activity.
 const connections = new Map<string, Connection>();
+
+// The socket only pushes a snapshot when it opens ("initial_data"), and that
+// first payload can take seconds or fail outright, which left the activity
+// section blank right after the page loaded. The REST endpoint answers
+// immediately, so it seeds the first render and the socket takes over from
+// there with live updates.
+function seed(userId: string, conn: Connection) {
+  conn.seeded = true;
+  const version = conn.version;
+  fetch(`${REST_BASE}/activity/${encodeURIComponent(userId)}`)
+    .then((response) => (response.ok ? response.json() : null))
+    .then((payload) => {
+      const data: DiscordActivityData | undefined = payload?.data;
+      // A socket update that landed meanwhile is fresher than this snapshot.
+      if (!data?.status || conn.version !== version) return;
+      conn.data = { status: data.status, spotify: data.spotify, activity: data.activity };
+      conn.listeners.forEach((listener) => listener(conn.data));
+    })
+    .catch(() => {
+      // Discord activity is a nice-to-have, fail silently.
+    });
+}
 
 function connect(userId: string, conn: Connection) {
   const socket = new WebSocket(`${WS_BASE}?user_id=${encodeURIComponent(userId)}`);
@@ -85,6 +111,7 @@ function connect(userId: string, conn: Connection) {
         spotify: message.d.spotify,
         activity: message.d.activity,
       };
+      conn.version += 1;
       conn.listeners.forEach((listener) => listener(conn.data));
     } catch {
       // Discord activity is a nice-to-have, fail silently.
@@ -96,7 +123,12 @@ function connect(userId: string, conn: Connection) {
     if (conn.listeners.size === 0) return;
     const delay = Math.min(RECONNECT_BASE_MS * 2 ** conn.attempts, RECONNECT_MAX_MS);
     conn.attempts += 1;
-    conn.reconnectTimer = setTimeout(() => connect(userId, conn), delay);
+    conn.reconnectTimer = setTimeout(() => {
+      // A dropped socket may have missed updates, so the reconnect refreshes
+      // the snapshot too.
+      seed(userId, conn);
+      connect(userId, conn);
+    }, delay);
   };
 
   socket.onerror = () => socket.close();
@@ -105,9 +137,11 @@ function connect(userId: string, conn: Connection) {
 function subscribe(userId: string, listener: Listener) {
   let conn = connections.get(userId);
   if (!conn) {
-    conn = { socket: null, listeners: new Set(), data: null, attempts: 0, reconnectTimer: null, idleTimer: null };
+    conn = { socket: null, listeners: new Set(), data: null, attempts: 0, reconnectTimer: null, idleTimer: null, seeded: false, version: 0 };
     connections.set(userId, conn);
   }
+
+  if (!conn.seeded) seed(userId, conn);
 
   if (conn.idleTimer) {
     clearTimeout(conn.idleTimer);
