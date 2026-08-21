@@ -86,7 +86,7 @@
     "enabled": true
   },
   "discordActivity": {
-    "enabled": false,
-    "userId": "Seu ID de usuário do Discord"
+    "enabled": true,
+    "userId": "161092845040566272"
   }
 }

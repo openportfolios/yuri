@@ -28,6 +28,10 @@ jobs:
         run: |
           rm -rf media
 
+      - name: Reset the Discord user id to its placeholder
+        run: |
+          sed -i 's|"userId": ".*"|"userId": "Seu ID de usuário do Discord"|' portfolio.config.json
+
       - name: Remove this workflow (runs only once)
         run: rm -f .github/workflows/init-template.yml
 

@@ -10,6 +10,16 @@ const RECONNECT_BASE_MS = 1000;
 const RECONNECT_MAX_MS = 30000;
 const IDLE_CLOSE_MS = 5000;
 
+// Discord user ids are snowflakes: 17-20 digits. Anything else (an empty
+// string, the template placeholder, a username) is not a usable id, so the
+// activity section and the status dot stay hidden instead of opening a socket
+// that can never resolve.
+const DISCORD_ID_PATTERN = /^\d{17,20}$/;
+
+function isValidDiscordId(userId: string | undefined): userId is string {
+  return typeof userId === "string" && DISCORD_ID_PATTERN.test(userId.trim());
+}
+
 const STATUS_COLORS: Record<string, string> = {
   online: "#23a55a",
   idle: "#f0b232",
@@ -129,11 +139,11 @@ function useDiscordActivity(config: DiscordActivityConfig) {
   const userId = config?.userId;
 
   useEffect(() => {
-    if (!enabled || !userId) {
+    if (!enabled || !isValidDiscordId(userId)) {
       setData(null);
       return;
     }
-    return subscribe(userId, setData);
+    return subscribe(userId.trim(), setData);
   }, [enabled, userId]);
 
   return data;
