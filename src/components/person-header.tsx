@@ -1,7 +1,6 @@
 import { CircleQuestionMark, FileText, Globe, Mail } from "lucide-react";
 import Link from "next/link";
 import { DiscordStatusDot } from "@/components/discord-activity";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { isSocialIconKey, makePx, type PortfolioConfigInput, type SocialIconKey } from "@/lib/portfolio-config";
 
 // ── Brand SVG icons ───────────────────────────────────────────────────────────
@@ -111,7 +110,6 @@ export function PersonHeader({ config }: { config: PortfolioConfigInput }) {
               {socialIcon(s.icon, px(16))}
             </SocialButton>
           ))}
-          <ThemeToggle buttonSize={px(32)} iconSize={px(16)} />
         </div>
       </div>
       <Link href="/" style={{ position: "relative", display: "flex", flexShrink: 0, overflow: "hidden", borderRadius: px(12), width: px(112), height: px(112) }}>

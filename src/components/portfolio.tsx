@@ -5,6 +5,7 @@ import { DiscordActivitySection } from "@/components/discord-activity";
 import { GitHubStars } from "@/components/github-stars";
 import { PersonHeader } from "@/components/person-header";
 import { Reveal } from "@/components/reveal";
+import { FloatingThemeToggle } from "@/components/theme-toggle";
 import { parseGitHubRepo } from "@/lib/github";
 import {
   areAnimationsEnabled,
@@ -361,9 +362,12 @@ export function Portfolio({ config, posts = [] }: { config: PortfolioConfigInput
 
   return (
     <>
+      <FloatingThemeToggle buttonSize={px(32)} iconSize={px(16)} offset={px(16)} />
       <main
         style={{ maxWidth: px(1400) }}
-        className="relative mx-auto scroll-my-12 overflow-auto p-4 md:p-16 print:p-11"
+        // The extra top padding on small screens keeps the header clear of the
+        // fixed theme toggle, which would otherwise sit on top of the avatar.
+        className="relative mx-auto scroll-my-12 overflow-auto px-4 pb-4 pt-14 md:p-16 print:p-11"
       >
         <div className="mx-auto w-full max-w-2xl space-y-8 print:space-y-4" style={{ backgroundColor: "hsl(var(--background))" }}>
 
