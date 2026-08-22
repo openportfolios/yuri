@@ -7,7 +7,8 @@ Siga o tutorial abaixo para colocar o seu portfolio no ar de graça, com HTTPS e
 1. [Antes de começar](#antes-de-começar)
 2. [Passo a passo](#passo-a-passo)
 3. [Atualizando o site](#atualizando-o-site)
-4. [Domínio personalizado](#domínio-personalizado)
+4. [Se o deploy falhar](#se-o-deploy-falhar)
+5. [Domínio personalizado](#domínio-personalizado)
 
 ## Antes de começar
 
@@ -60,6 +61,12 @@ git push
 ```
 
 Em cerca de um minuto o site já está atualizado.
+
+## Se o deploy falhar
+
+A Vercel mostra o motivo no log do build. No painel do projeto, abra **Deployments**, clique no deploy que falhou e leia o final do log em **Building**: a mensagem diz exatamente o que está errado, normalmente algum campo do `portfolio.config.json`. Corrija, faça o `push` e o deploy roda de novo.
+
+Enquanto isso, a versão que já está no ar continua funcionando normalmente.
 
 ## Domínio personalizado
 
