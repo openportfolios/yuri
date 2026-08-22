@@ -153,9 +153,19 @@ Suas informações pessoais e redes sociais, exibidas no cabeçalho do site.
 | `social` | `array` | Sim (pode ser `[]`) | Lista de redes sociais/links. |
 
 > [!NOTE]
->  O campo `social` suporta até 6 redes.
+> Não há limite de itens em `social`. A linha de ícones quebra em várias linhas conforme necessário, então adicionar muitos não quebra o layout.
 
-O projeto tem suporte aos seguintes ícones: E-mail (`email`), Currículo (`resume`), GitHub (`github`), LinkedIn (`linkedin`), Instagram (`instagram`), X/Twitter (`x`) e YouTube (`youtube`). Qualquer outro valor em `icon` exibe um ícone de ponto de interrogação.
+### Ícones disponíveis
+
+O valor de `icon` não diferencia maiúsculas de minúsculas. Qualquer valor não reconhecido exibe um ícone de ponto de interrogação, o site continua funcionando normalmente.
+
+**Genéricos:** `email` (E-mail), `resume` (Currículo), `website` (Site/link genérico), `phone` (Telefone), `rss` (RSS/blog), `location` (Localização).
+
+**Marcas:** `applemusic` (Apple Music), `artstation` (ArtStation), `bandcamp` (Bandcamp), `behance` (Behance), `bitbucket` (Bitbucket), `bluesky` (Bluesky), `buymeacoffee` (Buy Me A Coffee), `calendly` (Calendly), `chess` (Chess.com), `codewars` (Codewars), `crunchbase` (Crunchbase), `deezer` (Deezer), `deviantart` (DeviantArt), `devto` (dev.to), `discord` (Discord), `docker` (Docker), `dribbble` (Dribbble), `duolingo` (Duolingo), `epicgames` (Epic Games), `facebook` (Facebook), `figma` (Figma), `fiverr` (Fiverr), `flickr` (Flickr), `github` (GitHub), `gitlab` (GitLab), `goodreads` (Goodreads), `googlescholar` (Google Scholar), `gumroad` (Gumroad), `hackerrank` (HackerRank), `hashnode` (Hashnode), `huggingface` (Hugging Face), `imdb` (IMDb), `instagram` (Instagram), `itchio` (Itch.io), `kaggle` (Kaggle), `kick` (Kick), `kofi` (Ko-fi), `lastfm` (Last.fm), `leetcode` (LeetCode), `letterboxd` (Letterboxd), `lichess` (Lichess), `linkedin` (LinkedIn), `linktree` (Linktree), `mastodon` (Mastodon), `medium` (Medium), `netlify` (Netlify), `notion` (Notion), `npm` (npm), `orcid` (ORCID), `patreon` (Patreon), `paypal` (PayPal), `pinterest` (Pinterest), `playstation` (PlayStation), `producthunt` (Product Hunt), `reddit` (Reddit), `replit` (Replit), `researchgate` (ResearchGate), `roblox` (Roblox), `signal` (Signal), `snapchat` (Snapchat), `soundcloud` (SoundCloud), `spotify` (Spotify), `stackoverflow` (Stack Overflow), `steam` (Steam), `strava` (Strava), `substack` (Substack), `telegram` (Telegram), `threads` (Threads), `tidal` (TIDAL), `tiktok` (TikTok), `tumblr` (Tumblr), `twitch` (Twitch), `unsplash` (Unsplash), `upwork` (Upwork), `vercel` (Vercel), `vimeo` (Vimeo), `whatsapp` (WhatsApp), `wordpress` (WordPress), `x` (X), `ycombinator` (Y Combinator), `youtube` (YouTube).
+
+Alguns apelidos também funcionam: `twitter` e `x-twitter` (X), `mail` e `gmail` (e-mail), `cv` e `curriculo` (currículo), `site`, `link`, `web` e `portfolio` (site), `blog` e `feed` (RSS), `tel` e `telephone` (telefone), `dev.to`, `ko-fi`, `itch.io`, `last.fm`, `apple-music`, `buy-me-a-coffee`, `google-scholar`, `product-hunt`, `stack-overflow`, `chess.com`, `hackernews` e `hacker-news` (Y Combinator).
+
+Se faltar alguma marca, ela pode ser adicionada em `scripts/generate-social-icons.mjs` (veja o comentário no topo do arquivo).
 
 ## Sobre
 

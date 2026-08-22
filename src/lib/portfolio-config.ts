@@ -18,20 +18,11 @@ export type {
   DiscordActivity,
 } from "@openportfolios/schema";
 
-// Icons this template ships for person.social entries. The schema allows any
-// string for `icon`, so unknown values fall back to a question-mark icon
-// (see socialIcon() in components/person-header.tsx).
-export const SOCIAL_ICON_KEYS = [
-  "email",
-  "resume",
-  "github",
-  "linkedin",
-  "instagram",
-  "x",
-  "youtube",
-] as const;
-
-export type SocialIconKey = (typeof SOCIAL_ICON_KEYS)[number];
+// Icons this template ships for person.social entries live in ./social-icons
+// (the brand paths there are generated). They are re-exported here so the rest
+// of the app keeps importing config helpers from a single module.
+export { SOCIAL_ICON_KEYS, isSocialIconKey, resolveIconKey } from "./social-icons";
+export type { SocialIconKey } from "./social-icons";
 
 export type ScaleLevel = NonNullable<PortfolioConfigInput["meta"]["scale"]>;
 
@@ -74,10 +65,6 @@ export function resolveLanguage(config: PortfolioConfigInput): Language {
 
 export function resolveTheme(config: PortfolioConfigInput): ThemeName {
   return oneOf(THEMES, config.meta?.defaultTheme, DEFAULT_THEME);
-}
-
-export function isSocialIconKey(icon: unknown): icon is SocialIconKey {
-  return (SOCIAL_ICON_KEYS as readonly unknown[]).includes(icon);
 }
 
 // Sections are optional in the JSON file — omitting a key (or setting it to

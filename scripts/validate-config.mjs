@@ -15,11 +15,20 @@ try {
   process.exit(1);
 }
 
-const result = validateConfig(parsed);
+// @openportfolios/schema 1.0.0 caps person.social at 6 entries. This template
+// renders any number of them (the row wraps), so that single error must not
+// fail the build. Every other error still does. Drop this once the published
+// schema lifts the cap.
+function isSocialCapError({ path, message }) {
+  return path === "person.social" && message.includes("Too big");
+}
 
-if (!result.success) {
+const result = validateConfig(parsed);
+const errors = result.success ? [] : result.errors.filter((e) => !isSocialCapError(e));
+
+if (errors.length) {
   console.error("Invalid portfolio.config.json:");
-  for (const { path, message } of result.errors) {
+  for (const { path, message } of errors) {
     // Some schema messages already lead with the field path.
     console.error(message.startsWith(`${path}:`) ? `  ${message}` : `  ${path}: ${message}`);
   }

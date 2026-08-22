@@ -36,8 +36,13 @@ export function PreviewClient({ defaultConfig, posts }: { defaultConfig: Portfol
 
       const candidate = (data as { config?: unknown }).config;
       const result = validateConfig(candidate);
-      if (!result.success) {
-        console.debug("[preview] ignoring invalid config:", result.errors);
+      // Same exception the prebuild validation makes: the published schema
+      // caps person.social at 6 entries, but the header renders any number.
+      const errors = result.success
+        ? []
+        : result.errors.filter((e) => !(e.path === "person.social" && e.message.includes("Too big")));
+      if (errors.length) {
+        console.debug("[preview] ignoring invalid config:", errors);
         return;
       }
       setConfig(candidate as PortfolioConfigInput);
