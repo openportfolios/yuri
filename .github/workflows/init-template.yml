@@ -27,6 +27,7 @@ jobs:
       - name: Remove template-only files
         run: |
           rm -rf media
+          rm -f DOCUMENTATION.md DEPLOY.md
 
       - name: Reset the Discord user id to its placeholder
         run: |
