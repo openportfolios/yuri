@@ -132,6 +132,7 @@ Suas informações pessoais e redes sociais, exibidas no cabeçalho do site.
 "person": {
   "name": "Seu nome",
   "title": "Seu cargo / Título",
+  "email": "seu@email.com",
   "location": "Sua cidade, Seu país",
   "avatar": "https://github.com/openportfolios.png",
   "social": [
@@ -148,6 +149,7 @@ Suas informações pessoais e redes sociais, exibidas no cabeçalho do site.
 |---|---|---|---|
 | `name` | `string` | Sim | Seu nome, exibido em destaque no topo do site. |
 | `title` | `string` | Sim | Seu cargo/título. |
+| `email` | `string` | Não | Seu e-mail, exibido acima da localização. Clicar nele abre o app de e-mail (`mailto:`). Deixe de fora (ou vazio) para não exibir a linha. |
 | `location` | `string` | Sim | Sua localização. |
 | `avatar` | `string` (URL) | Sim | URL da sua foto de perfil. |
 | `social` | `array` | Sim (pode ser `[]`) | Lista de redes sociais/links. |

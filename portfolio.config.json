@@ -13,12 +13,13 @@
   "person": {
     "name": "Seu nome",
     "title": "Seu cargo / Título",
+    "email": "seu@email.com",
     "location": "Sua cidade, Seu país",
     "avatar": "https://github.com/openportfolios.png",
     "social": [
       {
         "label": "GitHub",
-        "href": "https://github.com/openportfolios/yuri",
+        "href": "https://github.com/openportfolios",
         "icon": "github"
       }
     ]

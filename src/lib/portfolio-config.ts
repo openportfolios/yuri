@@ -116,6 +116,39 @@ export function areAnimationsEnabled(config: PortfolioConfigInput): boolean {
   return flag(config.meta?.animations, true);
 }
 
+// The header reads its person fields through these resolvers. Nothing
+// re-validates the config at runtime, so a field left empty (or holding a
+// non-string) resolves to undefined and the header drops the whole element —
+// otherwise an empty value would still render its icon with no text beside it.
+function trimmedText(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : undefined;
+}
+
+export function personName(config: PortfolioConfigInput): string | undefined {
+  return trimmedText(config.person?.name);
+}
+
+export function personTitle(config: PortfolioConfigInput): string | undefined {
+  return trimmedText(config.person?.title);
+}
+
+export function personLocation(config: PortfolioConfigInput): string | undefined {
+  return trimmedText(config.person?.location);
+}
+
+export function personAvatar(config: PortfolioConfigInput): string | undefined {
+  return trimmedText(config.person?.avatar);
+}
+
+// `person.email` isn't part of @openportfolios/schema 1.0.0 — the schema
+// strips unknown keys instead of rejecting them, so the JSON stays valid and
+// the field is read from the raw config here.
+export function personEmail(config: PortfolioConfigInput): string | undefined {
+  return trimmedText((config.person as { email?: unknown } | undefined)?.email);
+}
+
 // The "Built with OpenPortfolios" footer; on by default, same rules.
 export function areCreditsEnabled(config: PortfolioConfigInput): boolean {
   return flag(config.meta?.credits, true);
