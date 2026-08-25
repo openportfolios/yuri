@@ -21,7 +21,7 @@
 
 .dark {
   color-scheme: dark;
-  --background: 210 4% 10%;
+  --background: 220 5.9% 10%;
   --foreground: 210 20% 98%;
   --primary: 210 20% 98%;
   --primary-foreground: 220.9 39.3% 11%;
@@ -31,7 +31,7 @@
   --muted-foreground: 215 10% 65%;
   --accent: 210 4% 16%;
   --accent-foreground: 210 20% 98%;
-  --card: 210 4% 10%;
+  --card: 220 5.9% 10%;
   --card-foreground: 210 20% 98%;
   --border: 210 4% 20%;
   --input: 210 4% 20%;
